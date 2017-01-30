@@ -19,7 +19,7 @@ var App = (function () {
     App.prototype.draw = function (index) {
         var _this = this;
         this.turnCount++;
-        if (this.turnCount > 9) {
+        if (this.turnCount > 9 || this.gameOver) {
             return;
         }
         var tile = this.tiles[index];
@@ -41,7 +41,13 @@ var App = (function () {
                 _this.ctx[index].stroke();
                 _this.ctx[index].closePath();
             }, 300);
-            if (this.turnCount < 9) {
+            this.checkWin();
+            if (this.gameOver) {
+                setTimeout(function () {
+                    alert('game over');
+                }, 2000);
+            }
+            if (this.turnCount < 9 && !this.gameOver) {
                 this.computerTurn();
             }
             else {
@@ -110,6 +116,128 @@ var App = (function () {
             _this.ctx[index].stroke();
             _this.ctx[index].closePath();
         }, 1200);
+        this.checkWin();
+        if (this.gameOver) {
+            setTimeout(function () {
+                alert('game over');
+            }, 2000);
+        }
+    };
+    App.prototype.checkWin = function () {
+        // X wins top row with tiles 0, 1, 2.
+        if ((this.content[0] === 'x') &&
+            (this.content[1] === 'x') &&
+            (this.content[2] === 'x')) {
+            console.log('x wins with top row');
+            this.gameOver = true;
+        }
+        // X wins middle row with tiles 3, 4, 5.
+        if ((this.content[3] === 'x') &&
+            (this.content[4] === 'x') &&
+            (this.content[5] === 'x')) {
+            console.log('x wins with middle row');
+            this.gameOver = true;
+        }
+        // X wins bottom row with tiles 6, 7, 8.
+        if ((this.content[6] === 'x') &&
+            (this.content[7] === 'x') &&
+            (this.content[8] === 'x')) {
+            console.log('x wins with bottom row');
+            this.gameOver = true;
+        }
+        // X wins with left column, tiles 0, 3, 6.
+        if ((this.content[0] === 'x') &&
+            (this.content[3] === 'x') &&
+            (this.content[6] === 'x')) {
+            console.log('x wins with left column');
+            this.gameOver = true;
+        }
+        // X wins with middle column, tiles 1, 4, 7.
+        if ((this.content[1] === 'x') &&
+            (this.content[4] === 'x') &&
+            (this.content[7] === 'x')) {
+            console.log('x wins with middle column');
+            this.gameOver = true;
+        }
+        // X wins right column, tiles 2, 5, 8.
+        if ((this.content[2] === 'x') &&
+            (this.content[5] === 'x') &&
+            (this.content[8] === 'x')) {
+            console.log('x wins with bottom row');
+            this.gameOver = true;
+        }
+        // X wins diagonal going from left to right, tiles 0, 4, 8.
+        if ((this.content[0] === 'x') &&
+            (this.content[4] === 'x') &&
+            (this.content[8] === 'x')) {
+            console.log('x wins diagonal going from left to right');
+            this.gameOver = true;
+        }
+        // X wins diagonal going from right to left, tiles 2, 4, 6;
+        if ((this.content[2] === 'x') &&
+            (this.content[4] === 'x') &&
+            (this.content[6] === 'x')) {
+            console.log('x wins with bottom row');
+            this.gameOver = true;
+        }
+        // Handle o winning.
+        // X wins top row with tiles 0, 1, 2.
+        if ((this.content[0] === 'o') &&
+            (this.content[1] === 'o') &&
+            (this.content[2] === 'o')) {
+            console.log('o wins with top row');
+            this.gameOver = true;
+        }
+        // o wins middle row with tiles 3, 4, 5.
+        if ((this.content[3] === 'o') &&
+            (this.content[4] === 'o') &&
+            (this.content[5] === 'o')) {
+            console.log('o wins with middle row');
+            this.gameOver = true;
+        }
+        // o wins bottom row with tiles 6, 7, 8.
+        if ((this.content[6] === 'o') &&
+            (this.content[7] === 'o') &&
+            (this.content[8] === 'o')) {
+            console.log('o wins with bottom row');
+            this.gameOver = true;
+        }
+        // o wins with left column, tiles 0, 3, 6.
+        if ((this.content[0] === 'o') &&
+            (this.content[3] === 'o') &&
+            (this.content[6] === 'o')) {
+            console.log('o wins with left column');
+            this.gameOver = true;
+        }
+        // o wins with middle column, tiles 1, 4, 7.
+        if ((this.content[1] === 'o') &&
+            (this.content[4] === 'o') &&
+            (this.content[7] === 'o')) {
+            console.log('o wins with middle column');
+            this.gameOver = true;
+        }
+        // o wins right column, tiles 2, 5, 8.
+        if ((this.content[2] === 'o') &&
+            (this.content[5] === 'o') &&
+            (this.content[8] === 'o')) {
+            console.log('o wins with bottom row');
+            this.gameOver = true;
+        }
+        // o wins diagonal going from left to right, tiles 0, 4, 8.
+        if ((this.content[0] === 'o') &&
+            (this.content[4] === 'o') &&
+            (this.content[8] === 'o')) {
+            console.log('o wins diagonal going from left to right');
+            this.gameOver = true;
+        }
+        // o wins diagonal going from right to left, tiles 2, 4, 6;
+        if ((this.content[2] === 'o') &&
+            (this.content[4] === 'o') &&
+            (this.content[6] === 'o')) {
+            console.log('o wins with bottom row');
+            this.gameOver = true;
+        }
+        return 'x wins';
     };
     return App;
 }());
