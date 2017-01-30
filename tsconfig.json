@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "es6",
+    "target": "es5",
+    "moduleResolution": "node",
+    "baseUrl": "node_modules",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "sourceMap": false,
+    "outDir": "js"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

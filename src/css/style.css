@@ -1,0 +1,88 @@
+body {
+  background: dodgerblue;
+  text-align: center; }
+  body .btn {
+    margin: 4% 0 0 0; }
+    body .btn:hover {
+      -webkit-animation-name: raiseBtn;
+      -moz-animation-name: raiseBtn;
+      -o-animation-name: raiseBtn;
+      animation-name: raiseBtn;
+      -webkit-animation-duration: 300ms;
+      -moz-animation-duration: 300ms;
+      -o-animation-duration: 300ms;
+      animation-duration: 300ms;
+      -webkit-animation-timing-function: ease-out;
+      -moz-animation-timing-function: ease-out;
+      -o-animation-timing-function: ease-out;
+      animation-timing-function: ease-out;
+      -webkit-animation-fill-mode: both;
+      -moz-animation-fill-mode: both;
+      -o-animation-fill-mode: both;
+      animation-fill-mode: both; }
+
+.game-board {
+  background: darkblue;
+  margin: 5% auto 0;
+  padding: 4% 1%;
+  min-width: 35%;
+  max-width: 40%; }
+  .game-board .tile {
+    background: skyblue;
+    margin-bottom: 2px; }
+    .game-board .tile:hover {
+      background: deeppink;
+      -webkit-box-shadow: 1px 2px 15px 2px #fff;
+      -moz-box-shadow: 1px 2px 15px 2px #fff;
+      box-shadow: 1px 2px 15px 2px #fff;
+      height: 99px;
+      width: 101px;
+      -webkit-transition: background 650ms ease-in, height 200ms ease-out width 200ms ease-out, -webkit-box-shadow 200ms;
+      transition: background 650ms ease-in, height 200ms ease-out width 200ms ease-out, -webkit-box-shadow 200ms;
+      -o-transition: background 650ms ease-in, box-shadow 200ms, height 200ms ease-out width 200ms ease-out;
+      -moz-transition: background 650ms ease-in, box-shadow 200ms, height 200ms ease-out width 200ms ease-out, -moz-box-shadow 200ms;
+      transition: background 650ms ease-in, box-shadow 200ms, height 200ms ease-out width 200ms ease-out;
+      transition: background 650ms ease-in, box-shadow 200ms, height 200ms ease-out width 200ms ease-out, -webkit-box-shadow 200ms, -moz-box-shadow 200ms; }
+
+.fade-out-tile {
+  opacity: .7;
+  -webkit-transition: opacity 400ms ease-out;
+  -o-transition: opacity 400ms ease-out;
+  -moz-transition: opacity 400ms ease-out;
+  transition: opacity 400ms ease-out; }
+
+@-webkit-keyframes raiseBtn {
+  from {
+    -webkit-transform: translateY(0);
+    transform: translateY(0); }
+  to {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px); } }
+
+@-moz-keyframes raiseBtn {
+  from {
+    -moz-transform: translateY(0);
+    transform: translateY(0); }
+  to {
+    -moz-transform: translateY(-5px);
+    transform: translateY(-5px); } }
+
+@-o-keyframes raiseBtn {
+  from {
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  to {
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px); } }
+
+@keyframes raiseBtn {
+  from {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  to {
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px); } }

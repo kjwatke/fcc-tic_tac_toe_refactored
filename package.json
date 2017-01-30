@@ -1,0 +1,30 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "main": "index.js",
+ 
+  "author": "kjwatke@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "lite-server",
+    "watch": "gulp"
+  },
+  "devDependencies": {
+    "eslint": "^3.13.1",
+    "eslint-config-google": "^0.7.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-pug": "^3.2.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-typescript": "^3.1.4",
+    "lite-server": "^2.2.2",
+    "node-sass": "^3.4.0",
+    "sass-lint": "^1.10.2",
+    "tslint": "^4.3.1",
+    "typescript": "^2.1.5"
+  },
+  "dependencies": {
+    "material-design-lite": "^1.3.0",
+    "pug": "^2.0.0-beta6"
+  }
+}
