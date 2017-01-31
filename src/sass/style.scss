@@ -15,7 +15,7 @@ body {
 }
 
 .game-board {
-  background: #00008b;
+  background: #87ceeb * .52;
   margin: 5% auto 0;
   padding: 3% 0;
   width: 32%;
@@ -40,6 +40,58 @@ body {
   transition: opacity 400ms ease-out;
 }
 
+// Styles for selecting one player or two player game.
+.one-player-or-two {
+  background: #14BDAC;
+  color: white;
+  height: 100vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 999999;
+
+  .span-container {
+    border-radius: 10px;
+    box-shadow: 0 4px 20px 4px #000;
+    margin: 20% auto;
+    padding: 5% 0;
+    width: 30%;
+
+    button {
+      background: teal;
+      color: white;
+      margin-top: 10%;
+    }
+  }
+}
+
+.span-container {
+  font-size: 2.2rem;
+
+  button {
+
+    &:hover {
+      animation-duration: 300ms;
+      animation-fill-mode: both;
+      animation-name: raiseBtn;
+      animation-timing-function: ease-in-out;
+    }
+  }
+}
+
+.hide-overlay {
+  animation-duration: 600ms;
+  animation-fill-mode: both;
+  animation-name: hideOverlay;
+  animation-timing-function: ease-out;
+}
+
+.remove-overlay {
+  display: none;
+}
+
+
 @keyframes raiseBtn {
   from {
     transform: translateY(0);
@@ -47,5 +99,15 @@ body {
 
   to {
     transform: translateY(-5px);
+  }
+}
+
+@keyframes hideOverlay {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }

@@ -13,12 +13,33 @@ var App = (function () {
         ];
     }
     App.prototype.init = function () {
+        var _this = this;
         this.cacheTiles();
         this.cacheCtx();
         this.manualReset();
         for (var i = 0; i < this.tiles.length; i += 1) {
             this.content[i] = '';
         }
+        // Let the player select one player or two, set variable and then animate the overlay away, eventually removing it from document.
+        var overlay = document.querySelector('.one-player-or-two');
+        var onePlayer = document.querySelector('.one');
+        onePlayer.addEventListener('click', function () {
+            _this.numOfPlayers = 1;
+            overlay.classList.add('hide-overlay');
+            setTimeout(function () {
+                overlay.classList.add('remove-overlay');
+                overlay.classList.remove('hide-overlay');
+            }, 650);
+        });
+        var twoPlayer = document.querySelector('.two');
+        twoPlayer.addEventListener('click', function () {
+            _this.numOfPlayers = 2;
+            overlay.classList.add('hide-overlay');
+            setTimeout(function () {
+                overlay.classList.add('remove-overlay');
+                overlay.classList.remove('hide-overlay');
+            }, 650);
+        });
     };
     App.prototype.draw = function (index) {
         var _this = this;

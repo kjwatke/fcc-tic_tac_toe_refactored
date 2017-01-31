@@ -3,6 +3,7 @@ class App {
   private tilesDisabled: boolean[] = [];
   private ctx: any[] = [];
   private gameOver: boolean = false;
+  private numOfPlayers: number;
   private content: string[] = [];
   private turnCount: number = 0;
   private map: number[] =
@@ -20,6 +21,29 @@ class App {
     for (let i = 0; i < this.tiles.length; i += 1) {
       this.content[i] = '';
     }
+
+    // Let the player select one player or two, set variable and then animate the overlay away, eventually removing it from document.
+    const overlay = document.querySelector('.one-player-or-two');
+    const onePlayer = document.querySelector('.one');
+    onePlayer.addEventListener('click', () => {
+      this.numOfPlayers = 1;
+      overlay.classList.add('hide-overlay');
+      setTimeout(() => {
+        overlay.classList.add('remove-overlay');
+        overlay.classList.remove('hide-overlay');
+      }, 650);
+    });
+
+    const twoPlayer = document.querySelector('.two');
+    twoPlayer.addEventListener('click', () => {
+      this.numOfPlayers = 2;
+      overlay.classList.add('hide-overlay');
+      setTimeout(() => {
+        overlay.classList.add('remove-overlay');
+        overlay.classList.remove('hide-overlay');
+      }, 650);
+    });
+
   }
 
   public draw(index): void {

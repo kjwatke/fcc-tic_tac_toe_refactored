@@ -22,7 +22,7 @@ body {
       animation-timing-function: ease-out; }
 
 .game-board {
-  background: #00008b;
+  background: #466b7a;
   margin: 5% auto 0;
   padding: 3% 0;
   width: 32%; }
@@ -48,6 +48,71 @@ body {
   -o-transition: opacity 400ms ease-out;
   -moz-transition: opacity 400ms ease-out;
   transition: opacity 400ms ease-out; }
+
+.one-player-or-two {
+  background: #14BDAC;
+  color: white;
+  height: 100vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 999999; }
+  .one-player-or-two .span-container {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 4px 20px 4px #000;
+    -moz-box-shadow: 0 4px 20px 4px #000;
+    box-shadow: 0 4px 20px 4px #000;
+    margin: 20% auto;
+    padding: 5% 0;
+    width: 30%; }
+    .one-player-or-two .span-container button {
+      background: teal;
+      color: white;
+      margin-top: 10%; }
+
+.span-container {
+  font-size: 2.2rem; }
+  .span-container button:hover {
+    -webkit-animation-duration: 300ms;
+    -moz-animation-duration: 300ms;
+    -o-animation-duration: 300ms;
+    animation-duration: 300ms;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: raiseBtn;
+    -moz-animation-name: raiseBtn;
+    -o-animation-name: raiseBtn;
+    animation-name: raiseBtn;
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-timing-function: ease-in-out;
+    -o-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out; }
+
+.hide-overlay {
+  -webkit-animation-duration: 600ms;
+  -moz-animation-duration: 600ms;
+  -o-animation-duration: 600ms;
+  animation-duration: 600ms;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: hideOverlay;
+  -moz-animation-name: hideOverlay;
+  -o-animation-name: hideOverlay;
+  animation-name: hideOverlay;
+  -webkit-animation-timing-function: ease-out;
+  -moz-animation-timing-function: ease-out;
+  -o-animation-timing-function: ease-out;
+  animation-timing-function: ease-out; }
+
+.remove-overlay {
+  display: none; }
 
 @-webkit-keyframes raiseBtn {
   from {
@@ -84,3 +149,27 @@ body {
     -moz-transform: translateY(-5px);
     -o-transform: translateY(-5px);
     transform: translateY(-5px); } }
+
+@-webkit-keyframes hideOverlay {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
+@-moz-keyframes hideOverlay {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
+@-o-keyframes hideOverlay {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
+@keyframes hideOverlay {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
