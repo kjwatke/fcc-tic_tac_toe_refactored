@@ -40,6 +40,23 @@ var App = (function () {
                 overlay.classList.remove('hide-overlay');
             }, 650);
         });
+        var xOroOverlay = document.querySelector('.choose-symbol');
+        var xChoice = document.querySelector('.x');
+        xChoice.addEventListener('click', function () {
+            _this.playerChoice = 'x';
+            xOroOverlay.classList.add('hide-overlay');
+            setTimeout(function () {
+                xOroOverlay.classList.add('remove-overlay');
+            }, 650);
+        });
+        var oChoice = document.querySelector('.o');
+        oChoice.addEventListener('click', function () {
+            _this.playerChoice = 'o';
+            xOroOverlay.classList.add('hide-overlay');
+            setTimeout(function () {
+                xOroOverlay.classList.add('hide-overlay');
+            }, 650);
+        });
     };
     App.prototype.draw = function (index) {
         var _this = this;

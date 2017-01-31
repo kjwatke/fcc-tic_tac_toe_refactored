@@ -5,6 +5,7 @@ class App {
   private gameOver: boolean = false;
   private numOfPlayers: number;
   private content: string[] = [];
+  private playerChoice: string;
   private turnCount: number = 0;
   private map: number[] =
   [
@@ -41,6 +42,25 @@ class App {
       setTimeout(() => {
         overlay.classList.add('remove-overlay');
         overlay.classList.remove('hide-overlay');
+      }, 650);
+    });
+
+    const xOroOverlay: Element = document.querySelector('.choose-symbol');
+    const xChoice: Element = document.querySelector('.x');
+    xChoice.addEventListener('click', () => {
+      this.playerChoice = 'x';
+      xOroOverlay.classList.add('hide-overlay');
+      setTimeout(() => {
+        xOroOverlay.classList.add('remove-overlay');
+      }, 650);
+    });
+
+    const oChoice: Element = document.querySelector('.o');
+    oChoice.addEventListener('click', () => {
+      this.playerChoice = 'o';
+      xOroOverlay.classList.add('hide-overlay');
+      setTimeout(() => {
+        xOroOverlay.classList.add('hide-overlay');
       }, 650);
     });
 
