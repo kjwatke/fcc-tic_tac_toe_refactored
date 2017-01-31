@@ -1,9 +1,16 @@
 body {
   background: #14BDAC;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   text-align: center;
 
   .btn {
-    margin: 4% 0 0;
+    left: 50%;
+    margin-left: -50px;
+    position: absolute;
+    top: 685px;
+    width: 100px;
 
     &:hover {
       animation-duration: 300ms;
@@ -14,11 +21,61 @@ body {
   }
 }
 
+// Style the scoreboard.
+.scoreboard {
+  display: flex;
+  flex-flow: nowrap row;
+  height: 100px;
+  left: 50%;
+  margin-left: -125px;
+  position: absolute;
+  top: 80px;
+  width: 250px;
+
+  .x-container {
+
+    background: white;
+    border-radius: 10px;
+    width: 50%;
+
+    & span {
+      font-size: 2.2em;
+    }
+
+    & .label {
+      font-size: 3em;
+      position: relative;
+      top: 15px;
+    }
+
+    & .score {
+      font-size: 2.8em;
+      position: relative;
+      top: 15px;
+    }
+
+    & hr {
+      border-bottom: 5px double red;
+      border-top: 5px double red;
+    }
+  }
+
+  .o-container {
+    background: black;
+    border-radius: 10px;
+    border: green;
+    width: 50%;
+  }
+}
+
 .game-board {
   background: #87ceeb * .52;
-  margin: 5% auto 0;
-  padding: 3% 0;
-  width: 32%;
+  padding: 5% 0;
+  position: relative;
+  left: 50%;
+  margin-left: -17%;
+  top: 130px;
+  width: 34%;
 
   .tile {
     background: #87ceeb;

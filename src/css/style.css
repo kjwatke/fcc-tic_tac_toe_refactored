@@ -1,8 +1,17 @@
 body {
   background: #14BDAC;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   text-align: center; }
   body .btn {
-    margin: 4% 0 0; }
+    left: 50%;
+    margin-left: -50px;
+    position: absolute;
+    top: 685px;
+    width: 100px; }
     body .btn:hover {
       -webkit-animation-duration: 300ms;
       -moz-animation-duration: 300ms;
@@ -21,11 +30,60 @@ body {
       -o-animation-timing-function: ease-out;
       animation-timing-function: ease-out; }
 
+.scoreboard {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-flow: nowrap row;
+  -moz-box-orient: horizontal;
+  -moz-box-direction: normal;
+  -ms-flex-flow: nowrap row;
+  flex-flow: nowrap row;
+  height: 100px;
+  left: 50%;
+  margin-left: -125px;
+  position: absolute;
+  top: 80px;
+  width: 250px; }
+  .scoreboard .x-container {
+    background: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    width: 50%; }
+    .scoreboard .x-container span {
+      font-size: 2.2em; }
+    .scoreboard .x-container .label {
+      font-size: 3em;
+      position: relative;
+      top: 15px; }
+    .scoreboard .x-container .score {
+      font-size: 2.8em;
+      position: relative;
+      top: 15px; }
+    .scoreboard .x-container hr {
+      border-bottom: 5px double red;
+      border-top: 5px double red; }
+  .scoreboard .o-container {
+    background: black;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: green;
+    width: 50%; }
+
 .game-board {
   background: #466b7a;
-  margin: 5% auto 0;
-  padding: 3% 0;
-  width: 32%; }
+  padding: 5% 0;
+  position: relative;
+  left: 50%;
+  margin-left: -17%;
+  top: 130px;
+  width: 34%; }
   .game-board .tile {
     background: #87ceeb;
     margin-bottom: 4px;
