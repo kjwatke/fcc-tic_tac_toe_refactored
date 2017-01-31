@@ -76,7 +76,6 @@ class App {
     if (!this.tilesDisabled[index]) {
       this.tilesDisabled[index] = true;
       tile.classList.add('fade-out-tile');
-      // this.content[index] = this.playerChoice;
       this.tiles[index].style =
         'transform: rotateY(180deg); transition: transform 500ms ease-in';
 
