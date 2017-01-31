@@ -45,6 +45,7 @@ class App {
       }, 650);
     });
 
+    // Set playerChoice to x or o, depending on which button is clicked.
     const xOroOverlay: Element = document.querySelector('.choose-symbol');
     const xChoice: Element = document.querySelector('.x');
     xChoice.addEventListener('click', () => {
@@ -60,7 +61,7 @@ class App {
       this.playerChoice = 'o';
       xOroOverlay.classList.add('hide-overlay');
       setTimeout(() => {
-        xOroOverlay.classList.add('hide-overlay');
+        xOroOverlay.classList.add('remove-overlay');
       }, 650);
     });
 
@@ -75,23 +76,15 @@ class App {
     if (!this.tilesDisabled[index]) {
       this.tilesDisabled[index] = true;
       tile.classList.add('fade-out-tile');
-      this.content[index] = 'x';
+      // this.content[index] = this.playerChoice;
       this.tiles[index].style =
         'transform: rotateY(180deg); transition: transform 500ms ease-in';
 
-      // Draw an X.
-      setTimeout(() => {
-        this.ctx[index].lineCap = 'round';
-        this.ctx[index].lineWidth = 5;
-        // this.ctx[index].strokeStyle = 'darkbrown';
-        this.ctx[index].beginPath();
-        this.ctx[index].moveTo(20, 20);
-        this.ctx[index].lineTo(80, 80);
-        this.ctx[index].moveTo(80, 20);
-        this.ctx[index].lineTo(20, 80);
-        this.ctx[index].stroke();
-        this.ctx[index].closePath();
-      }, 300);
+      if (this.playerChoice === 'x') {
+        this.drawX(index);
+      } else if (this.playerChoice === 'o') {
+        this.drawO(index);
+      }
 
       this.checkWin();
 
@@ -103,12 +96,69 @@ class App {
     }
   }
 
+  private drawX(index): void {
+    this.content[index] = 'x';
+    this.tilesDisabled[index] = true;
+    const timeout = this.playerChoice === 'x'
+      ? 300
+      : 1200;
+    setTimeout(() => {
+      this.ctx[index].lineCap = 'round';
+      this.ctx[index].lineWidth = 5;
+      this.ctx[index].beginPath();
+      this.ctx[index].moveTo(20, 20);
+      this.ctx[index].lineTo(80, 80);
+      this.ctx[index].moveTo(80, 20);
+      this.ctx[index].lineTo(20, 80);
+      this.ctx[index].stroke();
+      this.ctx[index].closePath();
+      }, timeout);
+
+    this.checkWin();
+  }
+
+  private drawO(index): void {
+    const animateDelay = this.playerChoice === 'x'
+      ? 1000
+      : 0;
+    const drawDelay = this.playerChoice === 'x'
+      ? 1200
+      : 300;
+    this.turnCount++;
+    this.tilesDisabled[index] = true;
+    this.content[index] = 'o';
+
+    setTimeout(() => {
+      this.tiles[index].classList.add('fade-out-tile');
+      this.tiles[index].style =
+      'transform: rotateY(180deg); transition: transform 500ms ease-out';
+    }, animateDelay);
+
+    setTimeout(() => {
+      this.ctx[index].beginPath();
+      this.ctx[index].lineWidth = 5;
+      this.ctx[index].arc(50, 50, 34, 0, Math.PI * 2, false);
+      this.ctx[index].stroke();
+      this.ctx[index].closePath();
+    }, drawDelay);
+
+    this.checkWin();
+  }
+
   private cacheTiles(): void {
     for (let i = 0; i < 9; i += 1) {
       this.tiles[i] = document.querySelector(`.canvas${i}`);
       this.tilesDisabled[i] = false;
 
     }
+  }
+
+  private handleComputerAnimation(index, delay): void {
+    setTimeout(() => {
+      this.tiles[index].classList.add('fade-out-tile');
+      this.tiles[index].style =
+      'transform: rotateY(180deg); transition: transform 500ms ease-out';
+    }, delay);
   }
 
   private cacheCtx(): void {
@@ -121,49 +171,71 @@ class App {
     const rand = Math.floor(Math.random() * 9);
 
     if (rand === 0 && !this.tilesDisabled[0]) {
-      this.drawOSteps(0);
+      if (this.playerChoice === 'x') {
+        this.drawO(0);
+      } else {
+        this.handleComputerAnimation(0, 1000);
+        this.drawX(0);
+      }
     } else if (rand === 1 && !this.tilesDisabled[1]) {
-      this.drawOSteps(1);
+      if (this.playerChoice === 'x') {
+        this.drawO(1);
+      } else {
+        this.handleComputerAnimation(1, 1000);
+        this.drawX(1);
+      }
     } else if (rand === 2 && !this.tilesDisabled[2]) {
-      this.drawOSteps(2);
+      if (this.playerChoice === 'x') {
+        this.drawO(2);
+      } else {
+        this.handleComputerAnimation(2, 1000);
+        this.drawX(2);
+      }
     } else if (rand === 3 && !this.tilesDisabled[3]) {
-      this.drawOSteps(3);
+      if (this.playerChoice === 'x') {
+        this.drawO(3);
+      } else {
+        this.handleComputerAnimation(3, 1000);
+        this.drawX(3);
+      }
     } else if (rand === 4 && !this.tilesDisabled[4]) {
-      this.drawOSteps(4);
+      if (this.playerChoice === 'x') {
+        this.drawO(4);
+      } else {
+        this.handleComputerAnimation(4, 1000);
+        this.drawX(4);
+      }
     } else if (rand === 5 && !this.tilesDisabled[5]) {
-      this.drawOSteps(5);
+      if (this.playerChoice === 'x') {
+        this.drawO(5);
+      } else {
+        this.handleComputerAnimation(5, 1000);
+        this.drawX(5);
+      }
     } else if (rand === 6 && !this.tilesDisabled[6]) {
-      this.drawOSteps(6);
+      if (this.playerChoice === 'x') {
+        this.drawO(6);
+      } else {
+        this.handleComputerAnimation(6, 1000);
+        this.drawX(6);
+      }
     } else if (rand === 7 && !this.tilesDisabled[7]) {
-      this.drawOSteps(7);
+      if (this.playerChoice === 'x') {
+        this.drawO(7);
+      } else {
+        this.handleComputerAnimation(7, 1000);
+        this.drawX(7);
+      }
     } else if (rand === 8 && !this.tilesDisabled[8]) {
-      this.drawOSteps(8);
+      if (this.playerChoice === 'x') {
+        this.drawO(8);
+      } else {
+        this.handleComputerAnimation(8, 1000);
+        this.drawX(8);
+      }
     } else {
       this.computerTurn();
     }
-  }
-
-  private drawOSteps(index) {
-    this.turnCount++;
-    this.tilesDisabled[index] = true;
-    this.content[index] = 'o';
-    setTimeout(() => {
-      this.tiles[index].classList.add('fade-out-tile');
-      this.tiles[index].style =
-      'transform: rotateY(180deg); transition: transform 500ms ease-out';
-    }, 1000);
-
-    setTimeout(() => {
-      // this.ctx[index].strokeStyle = 'white';
-      this.ctx[index].beginPath();
-      this.ctx[index].lineWidth = 5;
-      this.ctx[index].arc(50, 50, 34, 0, Math.PI * 2, false);
-      this.ctx[index].stroke();
-      this.ctx[index].closePath();
-    }, 1200);
-
-    this.checkWin();
-
   }
 
   private checkWin(): string {
@@ -293,9 +365,13 @@ class App {
 
     // If x or o passed in, alert players of winner, else, alert of tie game.
     if (winner !== 'tie') {
-      console.log(`game over! ${winner} won`);
+      setTimeout(() => {
+        console.log(`game over! ${winner} won`);
+      }, 700);
     } else {
-      console.log('game over! tie game!');
+      setTimeout(() => {
+        console.log(`game over! Tie game`);
+      }, 700);
     }
 
     // Game is over, wipe board.
