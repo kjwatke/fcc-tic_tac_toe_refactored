@@ -129,7 +129,9 @@ body {
     width: 30%; }
     .one-player-or-two .span-container button {
       color: white;
-      margin-top: 10%; }
+      margin-top: 5%; }
+    .one-player-or-two .span-container h3 {
+      margin-top: -4%; }
 
 .span-container {
   font-size: 2.2rem; }
