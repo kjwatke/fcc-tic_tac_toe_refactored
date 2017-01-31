@@ -357,6 +357,7 @@ var App = (function () {
     };
     App.prototype.handleGameover = function (winner) {
         var _this = this;
+        console.log('game over...', this.content);
         // If x or o passed in, alert players of winner, else, alert of tie game.
         if (winner !== 'tie') {
             setTimeout(function () {

@@ -361,7 +361,7 @@ class App {
   }
 
   private handleGameover(winner): void {
-
+    console.log('game over...', this.content);
     // If x or o passed in, alert players of winner, else, alert of tie game.
     if (winner !== 'tie') {
       setTimeout(() => {

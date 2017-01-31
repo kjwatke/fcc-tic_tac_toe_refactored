@@ -28,7 +28,8 @@ body {
   width: 32%; }
   .game-board .tile {
     background: #87ceeb;
-    margin-bottom: 2px; }
+    margin-bottom: 4px;
+    margin-right: 2px; }
     .game-board .tile:hover {
       -webkit-box-shadow: 1px 2px 15px 2px #000;
       -moz-box-shadow: 1px 2px 15px 2px #000;

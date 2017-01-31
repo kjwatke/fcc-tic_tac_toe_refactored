@@ -45,14 +45,14 @@ gulp.task('compressJs', () => {
   return gulp
     .src('./src/js/app.js')
     .pipe(uglify())
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('cleanCss', () => {
   return gulp
     .src('./src/css/style.css')
     .pipe(cleanCss())
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('compressHtml', () => {
@@ -60,13 +60,6 @@ gulp.task('compressHtml', () => {
     .src('./src/index.html')
     .pipe(minHtml({collapseWhitespace: true}))
     .pipe(gulp.dest('dist'));
-});
-
-gulp.task('compress', () => {
-  return gulp
-    .src('./dist/*')
-    .pipe(compress())
-    .dest('dist');
 });
 
 gulp.task('build', ['compressJs', 'cleanCss', 'compressHtml']);
