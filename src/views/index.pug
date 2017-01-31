@@ -14,25 +14,43 @@ html
     h3.title TicTacToe-FCC Front End Project
     section.game-board.mdl-card-mdl-js-card.mdl-shadow--24dp
       canvas.canvas0.tile(height="100" width="100"
-                          onclick="appInstance.draw(0)")
+                          onclick="appInstance.draw(0)"
+                          onmouseover="appInstance.hover(0)"
+                          onmouseout="appInstance.removeHover(0)")
       canvas.canvas1.tile(height="100" width="100"
-                          onclick="appInstance.draw(1)")
+                          onclick="appInstance.draw(1)"
+                          onmouseover="appInstance.hover(1)"
+                          onmouseout="appInstance.removeHover(1)")
       canvas.canvas2.tile(height="100" width="100"
-                          onclick="appInstance.draw(2)")
+                          onclick="appInstance.draw(2)"
+                          onmouseover="appInstance.hover(2)"
+                          onmouseout="appInstance.removeHover(2)")
       br
       canvas.canvas3.tile(height="100" width="100"
-                          onclick="appInstance.draw(3)")
+                          onclick="appInstance.draw(3)"
+                          onmouseover="appInstance.hover(3)"
+                          onmouseout="appInstance.removeHover(3)")
       canvas.canvas4.tile(height="100" width="100"
-                          onclick="appInstance.draw(4)")
+                          onclick="appInstance.draw(4)"
+                          onmouseover="appInstance.hover(4)"
+                          onmouseout="appInstance.removeHover(4)")
       canvas.canvas5.tile(height="100" width="100"
-                          onclick="appInstance.draw(5)")
+                          onclick="appInstance.draw(5)"
+                          onmouseover="appInstance.hover(5)"
+                          onmouseout="appInstance.removeHover(5)")
       br
       canvas.canvas6.tile(height="100" width="100"
-                          onclick="appInstance.draw(6)")
+                          onclick="appInstance.draw(6)"
+                          onmouseover="appInstance.hover(6)"
+                          onmouseout="appInstance.removeHover(6)")
       canvas.canvas7.tile(height="100" width="100"
-                          onclick="appInstance.draw(7)")
+                          onclick="appInstance.draw(7)"
+                          onmouseover="appInstance.hover(7)"
+                          onmouseout="appInstance.removeHover(7)")
       canvas.canvas8.tile(height="100" width="100"
-                          onclick="appInstance.draw(8)")
+                          onclick="appInstance.draw(8)"
+                          onmouseover="appInstance.hover(8)"
+                          onmouseout="appInstance.removeHover(8)")
       br
     button.reload.btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--accent.reload.mdl-js-ripple-effect reset
 

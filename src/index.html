@@ -12,15 +12,15 @@
   <body>
     <h3 class="title">TicTacToe-FCC Front End Project</h3>
     <section class="game-board mdl-card-mdl-js-card mdl-shadow--24dp">
-      <canvas class="canvas0 tile" height="100" width="100" onclick="appInstance.draw(0)"></canvas>
-      <canvas class="canvas1 tile" height="100" width="100" onclick="appInstance.draw(1)"></canvas>
-      <canvas class="canvas2 tile" height="100" width="100" onclick="appInstance.draw(2)"></canvas><br>
-      <canvas class="canvas3 tile" height="100" width="100" onclick="appInstance.draw(3)"></canvas>
-      <canvas class="canvas4 tile" height="100" width="100" onclick="appInstance.draw(4)"></canvas>
-      <canvas class="canvas5 tile" height="100" width="100" onclick="appInstance.draw(5)"></canvas><br>
-      <canvas class="canvas6 tile" height="100" width="100" onclick="appInstance.draw(6)"></canvas>
-      <canvas class="canvas7 tile" height="100" width="100" onclick="appInstance.draw(7)"></canvas>
-      <canvas class="canvas8 tile" height="100" width="100" onclick="appInstance.draw(8)"></canvas><br>
+      <canvas class="canvas0 tile" height="100" width="100" onclick="appInstance.draw(0)" onmouseover="appInstance.hover(0)" onmouseout="appInstance.removeHover(0)"></canvas>
+      <canvas class="canvas1 tile" height="100" width="100" onclick="appInstance.draw(1)" onmouseover="appInstance.hover(1)" onmouseout="appInstance.removeHover(1)"></canvas>
+      <canvas class="canvas2 tile" height="100" width="100" onclick="appInstance.draw(2)" onmouseover="appInstance.hover(2)" onmouseout="appInstance.removeHover(2)"></canvas><br>
+      <canvas class="canvas3 tile" height="100" width="100" onclick="appInstance.draw(3)" onmouseover="appInstance.hover(3)" onmouseout="appInstance.removeHover(3)"></canvas>
+      <canvas class="canvas4 tile" height="100" width="100" onclick="appInstance.draw(4)" onmouseover="appInstance.hover(4)" onmouseout="appInstance.removeHover(4)"></canvas>
+      <canvas class="canvas5 tile" height="100" width="100" onclick="appInstance.draw(5)" onmouseover="appInstance.hover(5)" onmouseout="appInstance.removeHover(5)"></canvas><br>
+      <canvas class="canvas6 tile" height="100" width="100" onclick="appInstance.draw(6)" onmouseover="appInstance.hover(6)" onmouseout="appInstance.removeHover(6)"></canvas>
+      <canvas class="canvas7 tile" height="100" width="100" onclick="appInstance.draw(7)" onmouseover="appInstance.hover(7)" onmouseout="appInstance.removeHover(7)"></canvas>
+      <canvas class="canvas8 tile" height="100" width="100" onclick="appInstance.draw(8)" onmouseover="appInstance.hover(8)" onmouseout="appInstance.removeHover(8)"></canvas><br>
     </section>
     <button class="reload btn mdl-button mdl-js-button mdl-button--raised mdl-button--accent reload mdl-js-ripple-effect">reset</button>
     <script src="../js/app.js"></script>

@@ -15,6 +15,10 @@ var App = (function () {
     App.prototype.init = function () {
         this.cacheTiles();
         this.cacheCtx();
+        this.manualReset();
+        for (var i = 0; i < this.tiles.length; i += 1) {
+            this.content[i] = '';
+        }
     };
     App.prototype.draw = function (index) {
         var _this = this;
@@ -42,11 +46,6 @@ var App = (function () {
                 _this.ctx[index].closePath();
             }, 300);
             this.checkWin();
-            if (this.gameOver) {
-                setTimeout(function () {
-                    alert('game over');
-                }, 2000);
-            }
             if (this.turnCount < 9 && !this.gameOver) {
                 this.computerTurn();
             }
@@ -238,14 +237,63 @@ var App = (function () {
         }
     };
     App.prototype.handleGameover = function (winner) {
+        var _this = this;
+        // If x or o passed in, alert players of winner, else, alert of tie game.
         if (winner !== 'tie') {
             console.log("game over! " + winner + " won");
         }
         else {
             console.log('game over! tie game!');
         }
+        // Game is over, wipe board.
+        setTimeout(function () {
+            _this.clearBoard();
+        }, 1500);
     };
-    ;
+    // Apply styles to tiles when hovered over, depending on if they are enabled or disabled.
+    App.prototype.hover = function (index) {
+        // If button hasn't been clicked yet, apply styles.
+        if (!this.tilesDisabled[index]) {
+            this.tiles[index].style = "\n        background: #90ee90;\n        transition: background 400ms ease-in\n      ";
+        }
+        else if (this.tilesDisabled[index]) {
+            this.tiles[index].style = "\n        background: #f00;\n        transition: background 400ms ease-in;\n      ";
+        }
+    };
+    // Remove styles added on hover when user moves mouse out of tile area.
+    App.prototype.removeHover = function (index) {
+        // If button hasn't been clicked yet, apply styles.
+        if (!this.tilesDisabled[index]) {
+            this.tiles[index].style = "\n        background: #87ceeb;\n        transition: background 300ms ease-out;\n      ";
+        }
+        else if (this.tilesDisabled[index]) {
+            this.tiles[index].style = "\n        background: #87ceeb;\n        transition: background 300ms ease-out;\n      ";
+        }
+    };
+    App.prototype.clearBoard = function () {
+        var _this = this;
+        for (var i = 0; i < 9; i += 1) {
+            this.content[i] = '';
+        }
+        this.tilesDisabled.forEach(function (item, index) {
+            _this.tilesDisabled[index] = false;
+        });
+        this.ctx.forEach(function (item, index) {
+            item.clearRect(0, 0, 100, 100);
+        });
+        this.tiles.forEach(function (item) {
+            item.classList.remove('fade-out-tile');
+        });
+        this.gameOver = false;
+        this.turnCount = 0;
+    };
+    App.prototype.manualReset = function () {
+        var _this = this;
+        var resetBtn = document.querySelector('.reload');
+        resetBtn.addEventListener('click', function () {
+            _this.clearBoard();
+        });
+    };
     return App;
 }());
 var appInstance = new App();

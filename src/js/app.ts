@@ -15,6 +15,11 @@ class App {
   public init(): void {
     this.cacheTiles();
     this.cacheCtx();
+    this.manualReset();
+
+    for (let i = 0; i < this.tiles.length; i += 1) {
+      this.content[i] = '';
+    }
   }
 
   public draw(index): void {
@@ -44,12 +49,6 @@ class App {
       }, 300);
 
       this.checkWin();
-
-      if (this.gameOver) {
-        setTimeout(() => {
-          alert('game over');
-        }, 2000);
-      }
 
       if (this.turnCount < 9 && !this.gameOver) {
         this.computerTurn();
@@ -118,7 +117,6 @@ class App {
     }, 1200);
 
     this.checkWin();
-
 
   }
 
@@ -246,12 +244,82 @@ class App {
   }
 
   private handleGameover(winner): void {
+
+    // If x or o passed in, alert players of winner, else, alert of tie game.
     if (winner !== 'tie') {
       console.log(`game over! ${winner} won`);
     } else {
       console.log('game over! tie game!');
     }
-  };
+
+    // Game is over, wipe board.
+    setTimeout(() => {
+      this.clearBoard();
+    }, 1500);
+
+  }
+
+  // Apply styles to tiles when hovered over, depending on if they are enabled or disabled.
+  private hover(index): void {
+
+    // If button hasn't been clicked yet, apply styles.
+    if (!this.tilesDisabled[index]) {
+      this.tiles[index].style = `
+        background: #90ee90;
+        transition: background 400ms ease-in
+      `;
+    } else if (this.tilesDisabled[index]) {    // Else, apply different styles.
+      this.tiles[index].style = `
+        background: #f00;
+        transition: background 400ms ease-in;
+      `;
+    }
+  }
+
+  // Remove styles added on hover when user moves mouse out of tile area.
+  private removeHover(index): void {
+    // If button hasn't been clicked yet, apply styles.
+    if (!this.tilesDisabled[index]) {
+      this.tiles[index].style = `
+        background: #87ceeb;
+        transition: background 300ms ease-out;
+      `;
+    } else if (this.tilesDisabled[index]) {    // Else, apply different styles.
+      this.tiles[index].style = `
+        background: #87ceeb;
+        transition: background 300ms ease-out;
+      `;
+    }
+  }
+
+  private clearBoard(): void {
+    for (let i = 0; i < 9; i += 1) {
+      this.content[i] = '';
+    }
+
+    this.tilesDisabled.forEach((item, index) => {
+      this.tilesDisabled[index] = false;
+    });
+
+    this.ctx.forEach((item, index) => {
+      item.clearRect(0, 0, 100, 100);
+    });
+
+    this.tiles.forEach((item) => {
+      item.classList.remove('fade-out-tile');
+    });
+
+    this.gameOver = false;
+    this.turnCount = 0;
+
+  }
+
+  private manualReset(): void {
+    const resetBtn = document.querySelector('.reload');
+    resetBtn.addEventListener('click', () => {
+      this.clearBoard();
+    });
+  }
 
 }
 
