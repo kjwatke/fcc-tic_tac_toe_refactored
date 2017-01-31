@@ -5,7 +5,6 @@ const ts = require('gulp-typescript');
 const uglify = require('gulp-uglify');
 const cleanCss = require('gulp-clean-css');
 const minHtml = require('gulp-htmlmin');
-const compress = require('gulp-compress');
 const vendorPrefix = require('gulp-autoprefixer');
 
 gulp.task('pug', () => {
@@ -45,21 +44,21 @@ gulp.task('compressJs', () => {
   return gulp
     .src('./src/js/app.js')
     .pipe(uglify())
-    .pipe(gulp.dest('dist/js'));
+    .pipe(gulp.dest('docs/js'));
 });
 
 gulp.task('cleanCss', () => {
   return gulp
     .src('./src/css/style.css')
     .pipe(cleanCss())
-    .pipe(gulp.dest('dist/css'));
+    .pipe(gulp.dest('docs/css'));
 });
 
 gulp.task('compressHtml', () => {
   return gulp
     .src('./src/index.html')
     .pipe(minHtml({collapseWhitespace: true}))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('docs'));
 });
 
 gulp.task('build', ['compressJs', 'cleanCss', 'compressHtml']);
