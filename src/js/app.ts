@@ -38,7 +38,8 @@ class App {
       // Draw an X.
       setTimeout(() => {
         this.ctx[index].lineCap = 'round';
-        this.ctx[index].lineWidth = 3;
+        this.ctx[index].lineWidth = 5;
+        // this.ctx[index].strokeStyle = 'darkbrown';
         this.ctx[index].beginPath();
         this.ctx[index].moveTo(20, 20);
         this.ctx[index].lineTo(80, 80);
@@ -109,8 +110,9 @@ class App {
     }, 1000);
 
     setTimeout(() => {
+      // this.ctx[index].strokeStyle = 'white';
       this.ctx[index].beginPath();
-      this.ctx[index].lineWidth = 3;
+      this.ctx[index].lineWidth = 5;
       this.ctx[index].arc(50, 50, 34, 0, Math.PI * 2, false);
       this.ctx[index].stroke();
       this.ctx[index].closePath();
@@ -293,22 +295,28 @@ class App {
   }
 
   private clearBoard(): void {
+
+    // Set an '' to for each possible tile. This will avoid sparse arrays later.
     for (let i = 0; i < 9; i += 1) {
       this.content[i] = '';
     }
 
+    // Game is over, loop through array and reset each button to be enabled.
     this.tilesDisabled.forEach((item, index) => {
       this.tilesDisabled[index] = false;
     });
 
+    // Game is over, loop through each of our tiles and clear the drawing of X/O.
     this.ctx.forEach((item, index) => {
       item.clearRect(0, 0, 100, 100);
     });
 
+    // Loop though each tile and remove the styles to return the opacity to 1.
     this.tiles.forEach((item) => {
       item.classList.remove('fade-out-tile');
     });
 
+    // Set values back to defaults, removing this break the ability to play a new game after a win or tie.
     this.gameOver = false;
     this.turnCount = 0;
 
@@ -317,7 +325,15 @@ class App {
   private manualReset(): void {
     const resetBtn = document.querySelector('.reload');
     resetBtn.addEventListener('click', () => {
-      this.clearBoard();
+
+      // Confirm the user actually wants to clear game and reset state.
+      const clear: string = prompt('Are you sure you want to clear games ?' +
+                            'This will clear the board and the score' +
+                            'Enter y to continue, anything else to abort');
+      if (clear.toLowerCase() === 'y') {
+        // Player confirmed, clear the game score and board.
+        this.clearBoard();
+      }
     });
   }
 

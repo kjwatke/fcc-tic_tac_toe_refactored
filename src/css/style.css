@@ -1,5 +1,5 @@
 body {
-  background: #1e90ff;
+  background: #14BDAC;
   text-align: center; }
   body .btn {
     margin: 4% 0 0; }
@@ -24,9 +24,8 @@ body {
 .game-board {
   background: #00008b;
   margin: 5% auto 0;
-  max-width: 40%;
-  min-width: 35%;
-  padding: 4% 1%; }
+  padding: 3% 0;
+  width: 32%; }
   .game-board .tile {
     background: #87ceeb;
     margin-bottom: 2px; }

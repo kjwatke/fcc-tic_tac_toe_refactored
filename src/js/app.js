@@ -36,7 +36,8 @@ var App = (function () {
             // Draw an X.
             setTimeout(function () {
                 _this.ctx[index].lineCap = 'round';
-                _this.ctx[index].lineWidth = 3;
+                _this.ctx[index].lineWidth = 5;
+                // this.ctx[index].strokeStyle = 'darkbrown';
                 _this.ctx[index].beginPath();
                 _this.ctx[index].moveTo(20, 20);
                 _this.ctx[index].lineTo(80, 80);
@@ -109,8 +110,9 @@ var App = (function () {
                 'transform: rotateY(180deg); transition: transform 500ms ease-out';
         }, 1000);
         setTimeout(function () {
+            // this.ctx[index].strokeStyle = 'white';
             _this.ctx[index].beginPath();
-            _this.ctx[index].lineWidth = 3;
+            _this.ctx[index].lineWidth = 5;
             _this.ctx[index].arc(50, 50, 34, 0, Math.PI * 2, false);
             _this.ctx[index].stroke();
             _this.ctx[index].closePath();
@@ -272,18 +274,23 @@ var App = (function () {
     };
     App.prototype.clearBoard = function () {
         var _this = this;
+        // Set an '' to for each possible tile. This will avoid sparse arrays later.
         for (var i = 0; i < 9; i += 1) {
             this.content[i] = '';
         }
+        // Game is over, loop through array and reset each button to be enabled.
         this.tilesDisabled.forEach(function (item, index) {
             _this.tilesDisabled[index] = false;
         });
+        // Game is over, loop through each of our tiles and clear the drawing of X/O.
         this.ctx.forEach(function (item, index) {
             item.clearRect(0, 0, 100, 100);
         });
+        // Loop though each tile and remove the styles to return the opacity to 1.
         this.tiles.forEach(function (item) {
             item.classList.remove('fade-out-tile');
         });
+        // Set values back to defaults, removing this break the ability to play a new game after a win or tie.
         this.gameOver = false;
         this.turnCount = 0;
     };
@@ -291,7 +298,14 @@ var App = (function () {
         var _this = this;
         var resetBtn = document.querySelector('.reload');
         resetBtn.addEventListener('click', function () {
-            _this.clearBoard();
+            // Confirm the user actually wants to clear game and reset state.
+            var clear = prompt('Are you sure you want to clear games ?' +
+                'This will clear the board and the score' +
+                'Enter y to continue, anything else to abort');
+            if (clear.toLowerCase() === 'y') {
+                // Player confirmed, clear the game score and board.
+                _this.clearBoard();
+            }
         });
     };
     return App;
