@@ -107,7 +107,6 @@ var App = (function () {
             _this.ctx[index].stroke();
             _this.ctx[index].closePath();
         }, timeout);
-        this.checkWin();
     };
     App.prototype.drawO = function (index) {
         var _this = this;
@@ -133,7 +132,6 @@ var App = (function () {
             _this.ctx[index].stroke();
             _this.ctx[index].closePath();
         }, drawDelay);
-        this.checkWin();
     };
     App.prototype.cacheTiles = function () {
         for (var i = 0; i < 9; i += 1) {
@@ -159,42 +157,51 @@ var App = (function () {
         if (rand === 0 && !this.tilesDisabled[0]) {
             if (this.playerChoice === 'x') {
                 this.drawO(0);
+                this.checkWin();
             }
             else {
                 this.handleComputerAnimation(0, 1000);
                 this.drawX(0);
+                this.checkWin();
             }
         }
         else if (rand === 1 && !this.tilesDisabled[1]) {
             if (this.playerChoice === 'x') {
                 this.drawO(1);
+                this.checkWin();
             }
             else {
                 this.handleComputerAnimation(1, 1000);
                 this.drawX(1);
+                this.checkWin();
             }
         }
         else if (rand === 2 && !this.tilesDisabled[2]) {
             if (this.playerChoice === 'x') {
                 this.drawO(2);
+                this.checkWin();
             }
             else {
                 this.handleComputerAnimation(2, 1000);
                 this.drawX(2);
+                this.checkWin();
             }
         }
         else if (rand === 3 && !this.tilesDisabled[3]) {
             if (this.playerChoice === 'x') {
                 this.drawO(3);
+                this.checkWin();
             }
             else {
                 this.handleComputerAnimation(3, 1000);
                 this.drawX(3);
+                this.checkWin();
             }
         }
         else if (rand === 4 && !this.tilesDisabled[4]) {
             if (this.playerChoice === 'x') {
                 this.drawO(4);
+                this.checkWin();
             }
             else {
                 this.handleComputerAnimation(4, 1000);
@@ -204,37 +211,45 @@ var App = (function () {
         else if (rand === 5 && !this.tilesDisabled[5]) {
             if (this.playerChoice === 'x') {
                 this.drawO(5);
+                this.checkWin();
             }
             else {
                 this.handleComputerAnimation(5, 1000);
                 this.drawX(5);
+                this.checkWin();
             }
         }
         else if (rand === 6 && !this.tilesDisabled[6]) {
             if (this.playerChoice === 'x') {
                 this.drawO(6);
+                this.checkWin();
             }
             else {
                 this.handleComputerAnimation(6, 1000);
                 this.drawX(6);
+                this.checkWin();
             }
         }
         else if (rand === 7 && !this.tilesDisabled[7]) {
             if (this.playerChoice === 'x') {
                 this.drawO(7);
+                this.checkWin();
             }
             else {
                 this.handleComputerAnimation(7, 1000);
                 this.drawX(7);
+                this.checkWin();
             }
         }
         else if (rand === 8 && !this.tilesDisabled[8]) {
             if (this.playerChoice === 'x') {
                 this.drawO(8);
+                this.checkWin();
             }
             else {
                 this.handleComputerAnimation(8, 1000);
                 this.drawX(8);
+                this.checkWin();
             }
         }
         else {
@@ -247,117 +262,100 @@ var App = (function () {
             (this.content[2] === 'x')) {
             this.gameOver = true;
             this.handleGameover('x');
-            return;
         }
         else if ((this.content[3] === 'x') &&
             (this.content[4] === 'x') &&
             (this.content[5] === 'x')) {
             this.gameOver = true;
             this.handleGameover('x');
-            return;
         }
         else if ((this.content[6] === 'x') &&
             (this.content[7] === 'x') &&
             (this.content[8] === 'x')) {
             this.gameOver = true;
             this.handleGameover('x');
-            return;
         }
         else if ((this.content[0] === 'x') &&
             (this.content[3] === 'x') &&
             (this.content[6] === 'x')) {
             this.gameOver = true;
             this.handleGameover('x');
-            return;
         }
         else if ((this.content[1] === 'x') &&
             (this.content[4] === 'x') &&
             (this.content[7] === 'x')) {
             this.gameOver = true;
             this.handleGameover('x');
-            return;
         }
         else if ((this.content[2] === 'x') &&
             (this.content[5] === 'x') &&
             (this.content[8] === 'x')) {
             this.gameOver = true;
             this.handleGameover('x');
-            return;
         }
         else if ((this.content[0] === 'x') &&
             (this.content[4] === 'x') &&
             (this.content[8] === 'x')) {
             this.gameOver = true;
             this.handleGameover('x');
-            return;
         }
         else if ((this.content[2] === 'x') &&
             (this.content[4] === 'x') &&
             (this.content[6] === 'x')) {
             this.gameOver = true;
             this.handleGameover('x');
-            return;
         }
         else if ((this.content[0] === 'o') &&
             (this.content[1] === 'o') &&
             (this.content[2] === 'o')) {
             this.gameOver = true;
             this.handleGameover('o');
-            return;
         }
         else if ((this.content[3] === 'o') &&
             (this.content[4] === 'o') &&
             (this.content[5] === 'o')) {
             this.gameOver = true;
             this.handleGameover('o');
-            return;
         }
         else if ((this.content[6] === 'o') &&
             (this.content[7] === 'o') &&
             (this.content[8] === 'o')) {
             this.gameOver = true;
             this.handleGameover('o');
-            return;
         }
         else if ((this.content[0] === 'o') &&
             (this.content[3] === 'o') &&
             (this.content[6] === 'o')) {
             this.gameOver = true;
             this.handleGameover('o');
-            return;
         }
         else if ((this.content[1] === 'o') &&
             (this.content[4] === 'o') &&
             (this.content[7] === 'o')) {
             this.gameOver = true;
             this.handleGameover('o');
-            return;
         }
         else if ((this.content[2] === 'o') &&
             (this.content[5] === 'o') &&
             (this.content[8] === 'o')) {
             this.gameOver = true;
             this.handleGameover('o');
-            return;
         }
         else if ((this.content[0] === 'o') &&
             (this.content[4] === 'o') &&
             (this.content[8] === 'o')) {
             this.gameOver = true;
             this.handleGameover('o');
-            return;
         }
         else if ((this.content[2] === 'o') &&
             (this.content[4] === 'o') &&
             (this.content[6] === 'o')) {
             this.gameOver = true;
             this.handleGameover('o');
-            return;
         }
-        if (this.turnCount === 9 && !this.gameOver) {
-            this.handleGameover('tie');
+        if (this.turnCount >= 9 && !this.gameOver) {
             this.gameOver = true;
-            return;
+            this.handleGameover('tie');
         }
     };
     App.prototype.updateScore = function () {
@@ -370,18 +368,6 @@ var App = (function () {
     };
     App.prototype.handleGameover = function (winner) {
         var _this = this;
-        console.log('game over...', this.content);
-        // If x or o passed in, alert players of winner, else, alert of tie game.
-        if (winner !== 'tie') {
-            setTimeout(function () {
-                console.log("game over! " + winner + " won");
-            }, 700);
-        }
-        else {
-            setTimeout(function () {
-                console.log("game over! Tie game");
-            }, 700);
-        }
         // Update the winner of the game.'
         if (winner === 'x' && winner !== 'tie') {
             this.winner = 'x';
@@ -392,19 +378,29 @@ var App = (function () {
         else {
             this.winner = '';
         }
+        console.log('game over running...', this.content);
+        // If x or o passed in, alert players of winner, else, alert of tie game.
+        if (winner !== 'tie') {
+            setTimeout(function () {
+                console.log("game over! " + _this.winner + " won");
+            }, 700);
+        }
+        else {
+            setTimeout(function () {
+                console.log("game over! Tie game");
+            }, 700);
+        }
         // Update the scoreboard.
         if (this.winner === 'x') {
-            this.xScore += .5;
+            this.xScore += 1;
         }
         else if (this.winner === 'o') {
             this.oScore += 1;
         }
-        console.log('x score: ', this.xScore);
-        console.log('o score: ', this.oScore);
         // Append score to scoreboard.
         setTimeout(function () {
             _this.updateScore();
-        }, 800);
+        }, 1500);
         // Game is over, wipe board.
         setTimeout(function () {
             _this.clearBoard();
