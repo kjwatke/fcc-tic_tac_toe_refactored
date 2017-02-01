@@ -1,12 +1,15 @@
 class App {
-  private tiles: any[] = [];
-  private tilesDisabled: boolean[] = [];
+  private content: string[] = [];
   private ctx: any[] = [];
   private gameOver: boolean = false;
   private numOfPlayers: number;
-  private content: string[] = [];
+  private oScore: number = 0;
   private playerChoice: string;
+  private tiles: any[] = [];
+  private tilesDisabled: boolean[] = [];
   private turnCount: number = 0;
+  private winner: string;
+  private xScore: number = 0;
   private map: number[] =
   [
     0, 0, 0,
@@ -18,6 +21,7 @@ class App {
     this.cacheTiles();
     this.cacheCtx();
     this.manualReset();
+    this.updateScore();
 
     for (let i = 0; i < this.tiles.length; i += 1) {
       this.content[i] = '';
@@ -102,6 +106,7 @@ class App {
       ? 300
       : 1200;
     setTimeout(() => {
+      this.ctx[index].strokeStyle = 'white';
       this.ctx[index].lineCap = 'round';
       this.ctx[index].lineWidth = 5;
       this.ctx[index].beginPath();
@@ -134,6 +139,7 @@ class App {
     }, animateDelay);
 
     setTimeout(() => {
+      this.ctx[index].strokeStyle = 'black';
       this.ctx[index].beginPath();
       this.ctx[index].lineWidth = 5;
       this.ctx[index].arc(50, 50, 34, 0, Math.PI * 2, false);
@@ -360,6 +366,18 @@ class App {
     }
   }
 
+  private updateScore(): void {
+    // Set the X scoreboard.
+    const xScoreboard: Element = document.querySelector('.span-x-score');
+    xScoreboard.innerHTML = String(this.xScore);
+
+    // Set the O scoreboard.
+    const oScoreboard: Element = document.querySelector('.span-o-score');
+    oScoreboard.innerHTML = String(this.oScore);
+
+
+  }
+
   private handleGameover(winner): void {
     console.log('game over...', this.content);
     // If x or o passed in, alert players of winner, else, alert of tie game.
@@ -372,6 +390,30 @@ class App {
         console.log(`game over! Tie game`);
       }, 700);
     }
+
+    // Update the winner of the game.'
+    if (winner === 'x' && winner !== 'tie') {
+      this.winner = 'x'
+    } else if (winner === 'o') {
+      this.winner = 'o';
+    } else {
+      this.winner = '';
+    }
+
+    // Update the scoreboard.
+    if (this.winner === 'x') {
+      this.xScore += .5;
+    } else if (this.winner === 'o') {
+      this.oScore += 1;
+    }
+
+    console.log('x score: ', this.xScore);
+    console.log('o score: ', this.oScore);
+
+    // Append score to scoreboard.
+    setTimeout(() => {
+      this.updateScore();
+    }, 800);
 
     // Game is over, wipe board.
     setTimeout(() => {
@@ -439,6 +481,9 @@ class App {
     this.gameOver = false;
     this.turnCount = 0;
 
+    // Remove winner.
+    this.winner = '';
+
   }
 
   private manualReset(): void {
@@ -452,6 +497,11 @@ class App {
       if (clear.toLowerCase() === 'y') {
         // Player confirmed, clear the game score and board.
         this.clearBoard();
+
+        // Reset scores.
+        this.xScore = 0;
+        this.oScore = 0;
+        this.updateScore();
       }
     });
   }

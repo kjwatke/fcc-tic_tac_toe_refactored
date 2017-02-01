@@ -1,11 +1,13 @@
 var App = (function () {
     function App() {
-        this.tiles = [];
-        this.tilesDisabled = [];
+        this.content = [];
         this.ctx = [];
         this.gameOver = false;
-        this.content = [];
+        this.oScore = 0;
+        this.tiles = [];
+        this.tilesDisabled = [];
         this.turnCount = 0;
+        this.xScore = 0;
         this.map = [
             0, 0, 0,
             0, 0, 0,
@@ -17,6 +19,7 @@ var App = (function () {
         this.cacheTiles();
         this.cacheCtx();
         this.manualReset();
+        this.updateScore();
         for (var i = 0; i < this.tiles.length; i += 1) {
             this.content[i] = '';
         }
@@ -93,6 +96,7 @@ var App = (function () {
             ? 300
             : 1200;
         setTimeout(function () {
+            _this.ctx[index].strokeStyle = 'white';
             _this.ctx[index].lineCap = 'round';
             _this.ctx[index].lineWidth = 5;
             _this.ctx[index].beginPath();
@@ -122,6 +126,7 @@ var App = (function () {
                 'transform: rotateY(180deg); transition: transform 500ms ease-out';
         }, animateDelay);
         setTimeout(function () {
+            _this.ctx[index].strokeStyle = 'black';
             _this.ctx[index].beginPath();
             _this.ctx[index].lineWidth = 5;
             _this.ctx[index].arc(50, 50, 34, 0, Math.PI * 2, false);
@@ -355,6 +360,14 @@ var App = (function () {
             return;
         }
     };
+    App.prototype.updateScore = function () {
+        // Set the X scoreboard.
+        var xScoreboard = document.querySelector('.span-x-score');
+        xScoreboard.innerHTML = String(this.xScore);
+        // Set the O scoreboard.
+        var oScoreboard = document.querySelector('.span-o-score');
+        oScoreboard.innerHTML = String(this.oScore);
+    };
     App.prototype.handleGameover = function (winner) {
         var _this = this;
         console.log('game over...', this.content);
@@ -369,6 +382,29 @@ var App = (function () {
                 console.log("game over! Tie game");
             }, 700);
         }
+        // Update the winner of the game.'
+        if (winner === 'x' && winner !== 'tie') {
+            this.winner = 'x';
+        }
+        else if (winner === 'o') {
+            this.winner = 'o';
+        }
+        else {
+            this.winner = '';
+        }
+        // Update the scoreboard.
+        if (this.winner === 'x') {
+            this.xScore += .5;
+        }
+        else if (this.winner === 'o') {
+            this.oScore += 1;
+        }
+        console.log('x score: ', this.xScore);
+        console.log('o score: ', this.oScore);
+        // Append score to scoreboard.
+        setTimeout(function () {
+            _this.updateScore();
+        }, 800);
         // Game is over, wipe board.
         setTimeout(function () {
             _this.clearBoard();
@@ -415,6 +451,8 @@ var App = (function () {
         // Set values back to defaults, removing this break the ability to play a new game after a win or tie.
         this.gameOver = false;
         this.turnCount = 0;
+        // Remove winner.
+        this.winner = '';
     };
     App.prototype.manualReset = function () {
         var _this = this;
@@ -427,6 +465,10 @@ var App = (function () {
             if (clear.toLowerCase() === 'y') {
                 // Player confirmed, clear the game score and board.
                 _this.clearBoard();
+                // Reset scores.
+                _this.xScore = 0;
+                _this.oScore = 0;
+                _this.updateScore();
             }
         });
     };
