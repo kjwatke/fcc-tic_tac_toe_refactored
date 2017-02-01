@@ -118,6 +118,7 @@ class App {
       this.ctx[index].closePath();
       }, timeout);
 
+
   }
 
   private drawO(index): void {
@@ -372,20 +373,18 @@ class App {
     const oScoreboard: Element = document.querySelector('.span-o-score');
     oScoreboard.innerHTML = String(this.oScore);
 
-
   }
 
   private handleGameover(winner): void {
      // Update the winner of the game.'
     if (winner === 'x' && winner !== 'tie') {
-      this.winner = 'x'
+      this.winner = 'x';
     } else if (winner === 'o') {
       this.winner = 'o';
     } else {
       this.winner = '';
     }
 
-    console.log('game over running...', this.content);
     // If x or o passed in, alert players of winner, else, alert of tie game.
     if (winner !== 'tie') {
       setTimeout(() => {
@@ -413,6 +412,14 @@ class App {
     setTimeout(() => {
       this.clearBoard();
     }, 1500);
+
+    // If user won, do nothing for now.
+    // If computer won, make it go first for next game.
+    if (this.winner !== this.playerChoice && this.numOfPlayers === 1) {
+      setTimeout(() => {
+        this.computerTurn();
+      }, 1700);
+    }
 
   }
 
