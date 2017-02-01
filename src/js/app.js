@@ -63,7 +63,6 @@ var App = (function () {
         });
     };
     App.prototype.draw = function (index) {
-        this.turnCount++;
         if (this.turnCount > 9 || this.gameOver) {
             return;
         }
@@ -81,7 +80,14 @@ var App = (function () {
             }
             this.checkWin();
             if (this.turnCount < 9 && !this.gameOver) {
-                this.computerTurn();
+                if (this.numOfPlayers === 1) {
+                    this.computerTurn();
+                }
+                else if (this.numOfPlayers > 1) {
+                    this.playerChoice = this.playerChoice === 'x'
+                        ? 'o'
+                        : 'x';
+                }
             }
             else {
                 return;
@@ -90,6 +96,7 @@ var App = (function () {
     };
     App.prototype.drawX = function (index) {
         var _this = this;
+        this.turnCount++;
         this.content[index] = 'x';
         this.tilesDisabled[index] = true;
         var timeout = this.playerChoice === 'x'
@@ -389,6 +396,7 @@ var App = (function () {
                 console.log("game over! Tie game");
             }, 700);
         }
+        console.log('board: ', this.content);
         // Update the scoreboard.
         if (this.winner === 'x') {
             this.xScore += 1;

@@ -72,7 +72,6 @@ class App {
   }
 
   public draw(index): void {
-    this.turnCount++;
     if (this.turnCount > 9 || this.gameOver) {
       return;
     }
@@ -92,7 +91,13 @@ class App {
       this.checkWin();
 
       if (this.turnCount < 9 && !this.gameOver) {
-        this.computerTurn();
+        if (this.numOfPlayers === 1) {
+          this.computerTurn();
+        } else if (this.numOfPlayers > 1) {
+          this.playerChoice = this.playerChoice === 'x'
+            ? 'o'
+            : 'x';
+        }
       } else {
         return;
       }
@@ -100,6 +105,7 @@ class App {
   }
 
   private drawX(index): void {
+    this.turnCount++;
     this.content[index] = 'x';
     this.tilesDisabled[index] = true;
     const timeout = this.playerChoice === 'x'
@@ -117,7 +123,6 @@ class App {
       this.ctx[index].stroke();
       this.ctx[index].closePath();
       }, timeout);
-
 
   }
 
@@ -395,6 +400,8 @@ class App {
         console.log(`game over! Tie game`);
       }, 700);
     }
+
+    console.log('board: ', this.content);
 
     // Update the scoreboard.
     if (this.winner === 'x') {
