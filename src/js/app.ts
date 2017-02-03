@@ -1,4 +1,5 @@
 class App {
+  private compTurnAnimation;
   private content: string[] = [];
   private ctx: any[] = [];
   private gameOver: boolean = false;
@@ -18,6 +19,7 @@ class App {
   ];
 
   public init(): void {
+    console.log('init ran');
     this.cacheTiles();
     this.cacheCtx();
     this.manualReset();
@@ -79,9 +81,7 @@ class App {
     if (!this.tilesDisabled[index]) {
       this.tilesDisabled[index] = true;
       tile.classList.add('fade-out-tile');
-      this.tiles[index].style =
-        'transform: rotateY(180deg); transition: transform 500ms ease-in';
-
+      this.animateTile(index);
       if (this.playerChoice === 'x') {
         this.drawX(index);
       } else if (this.playerChoice === 'o') {
@@ -104,6 +104,33 @@ class App {
     }
   }
 
+  private animateTile(index): void {
+    this.tiles[index].animate([
+      {
+        height: '100px',
+        transform: ' rotateX(0deg) rotateY(0deg)',
+        width: '100px',
+      },
+      {
+        height: '50px',
+        transform: ' rotateX(180deg) rotateY(180deg)',
+        width: '50px',
+      },
+      {
+        height: '100px',
+        transform: 'rotateX(180deg) rotateY(180deg)',
+        width: '100px',
+      },
+    ],
+      {
+        direction: 'alternate',
+        duration: 1000,
+        easing: 'ease-in-out',
+        iterations: 1,
+      },
+    );
+  }
+
   private drawX(index): void {
     this.turnCount++;
     this.content[index] = 'x';
@@ -111,6 +138,12 @@ class App {
     const timeout = this.playerChoice === 'x'
       ? 300
       : 1200;
+    // if (this.playerChoice === 'o') {
+    //   setTimeout(() => {
+    //     this.animateTile(index);
+    //   }, timeout);
+    // }
+
     setTimeout(() => {
       this.ctx[index].strokeStyle = 'white';
       this.ctx[index].lineCap = 'round';
@@ -128,10 +161,10 @@ class App {
 
   private drawO(index): void {
     const animateDelay = this.playerChoice === 'x'
-      ? 1000
+      ? 1200
       : 0;
     const drawDelay = this.playerChoice === 'x'
-      ? 1200
+      ? 1400
       : 300;
     this.turnCount++;
     this.tilesDisabled[index] = true;
@@ -139,8 +172,6 @@ class App {
 
     setTimeout(() => {
       this.tiles[index].classList.add('fade-out-tile');
-      this.tiles[index].style =
-      'transform: rotateY(180deg); transition: transform 500ms ease-out';
     }, animateDelay);
 
     setTimeout(() => {
@@ -163,10 +194,9 @@ class App {
   }
 
   private handleComputerAnimation(index, delay): void {
-    setTimeout(() => {
+    this.compTurnAnimation = setTimeout(() => {
+      this.animateTile(index);
       this.tiles[index].classList.add('fade-out-tile');
-      this.tiles[index].style =
-      'transform: rotateY(180deg); transition: transform 500ms ease-out';
     }, delay);
   }
 
@@ -181,6 +211,7 @@ class App {
 
     if (rand === 0 && !this.tilesDisabled[0]) {
       if (this.playerChoice === 'x') {
+        this.handleComputerAnimation(0, 1000);
         this.drawO(0);
         this.checkWin();
       } else {
@@ -190,6 +221,7 @@ class App {
       }
     } else if (rand === 1 && !this.tilesDisabled[1]) {
       if (this.playerChoice === 'x') {
+        this.handleComputerAnimation(1, 1000);
         this.drawO(1);
         this.checkWin();
       } else {
@@ -199,6 +231,7 @@ class App {
       }
     } else if (rand === 2 && !this.tilesDisabled[2]) {
       if (this.playerChoice === 'x') {
+        this.handleComputerAnimation(2, 1000);
         this.drawO(2);
         this.checkWin();
       } else {
@@ -208,6 +241,7 @@ class App {
       }
     } else if (rand === 3 && !this.tilesDisabled[3]) {
       if (this.playerChoice === 'x') {
+        this.handleComputerAnimation(3, 1000);
         this.drawO(3);
         this.checkWin();
       } else {
@@ -217,6 +251,7 @@ class App {
       }
     } else if (rand === 4 && !this.tilesDisabled[4]) {
       if (this.playerChoice === 'x') {
+        this.handleComputerAnimation(4, 1000);
         this.drawO(4);
         this.checkWin();
       } else {
@@ -225,6 +260,7 @@ class App {
       }
     } else if (rand === 5 && !this.tilesDisabled[5]) {
       if (this.playerChoice === 'x') {
+        this.handleComputerAnimation(5, 1000);
         this.drawO(5);
         this.checkWin();
       } else {
@@ -234,6 +270,7 @@ class App {
       }
     } else if (rand === 6 && !this.tilesDisabled[6]) {
       if (this.playerChoice === 'x') {
+        this.handleComputerAnimation(6, 1000);
         this.drawO(6);
         this.checkWin();
       } else {
@@ -243,6 +280,7 @@ class App {
       }
     } else if (rand === 7 && !this.tilesDisabled[7]) {
       if (this.playerChoice === 'x') {
+        this.handleComputerAnimation(7, 1000);
         this.drawO(7);
         this.checkWin();
       } else {
@@ -252,6 +290,7 @@ class App {
       }
     } else if (rand === 8 && !this.tilesDisabled[8]) {
       if (this.playerChoice === 'x') {
+        this.handleComputerAnimation(8, 1000);
         this.drawO(8);
         this.checkWin();
       } else {
@@ -418,7 +457,7 @@ class App {
     // Game is over, wipe board.
     setTimeout(() => {
       this.clearBoard();
-    }, 1500);
+    }, 2200);
 
     // If user won, do nothing for now.
     // If computer won, make it go first for next game.
@@ -464,7 +503,6 @@ class App {
   }
 
   private clearBoard(): void {
-
     // Set an '' to for each possible tile. This will avoid sparse arrays later.
     for (let i = 0; i < 9; i += 1) {
       this.content[i] = '';

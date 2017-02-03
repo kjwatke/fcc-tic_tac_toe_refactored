@@ -16,6 +16,7 @@ var App = (function () {
     }
     App.prototype.init = function () {
         var _this = this;
+        console.log('init ran');
         this.cacheTiles();
         this.cacheCtx();
         this.manualReset();
@@ -70,8 +71,7 @@ var App = (function () {
         if (!this.tilesDisabled[index]) {
             this.tilesDisabled[index] = true;
             tile.classList.add('fade-out-tile');
-            this.tiles[index].style =
-                'transform: rotateY(180deg); transition: transform 500ms ease-in';
+            this.animateTile(index);
             if (this.playerChoice === 'x') {
                 this.drawX(index);
             }
@@ -94,6 +94,30 @@ var App = (function () {
             }
         }
     };
+    App.prototype.animateTile = function (index) {
+        this.tiles[index].animate([
+            {
+                height: '100px',
+                transform: ' rotateX(0deg) rotateY(0deg)',
+                width: '100px'
+            },
+            {
+                height: '50px',
+                transform: ' rotateX(180deg) rotateY(180deg)',
+                width: '50px'
+            },
+            {
+                height: '100px',
+                transform: 'rotateX(180deg) rotateY(180deg)',
+                width: '100px'
+            },
+        ], {
+            direction: 'alternate',
+            duration: 1000,
+            easing: 'ease-in-out',
+            iterations: 1
+        });
+    };
     App.prototype.drawX = function (index) {
         var _this = this;
         this.turnCount++;
@@ -102,6 +126,11 @@ var App = (function () {
         var timeout = this.playerChoice === 'x'
             ? 300
             : 1200;
+        // if (this.playerChoice === 'o') {
+        //   setTimeout(() => {
+        //     this.animateTile(index);
+        //   }, timeout);
+        // }
         setTimeout(function () {
             _this.ctx[index].strokeStyle = 'white';
             _this.ctx[index].lineCap = 'round';
@@ -118,18 +147,16 @@ var App = (function () {
     App.prototype.drawO = function (index) {
         var _this = this;
         var animateDelay = this.playerChoice === 'x'
-            ? 1000
+            ? 1200
             : 0;
         var drawDelay = this.playerChoice === 'x'
-            ? 1200
+            ? 1400
             : 300;
         this.turnCount++;
         this.tilesDisabled[index] = true;
         this.content[index] = 'o';
         setTimeout(function () {
             _this.tiles[index].classList.add('fade-out-tile');
-            _this.tiles[index].style =
-                'transform: rotateY(180deg); transition: transform 500ms ease-out';
         }, animateDelay);
         setTimeout(function () {
             _this.ctx[index].strokeStyle = 'black';
@@ -148,10 +175,9 @@ var App = (function () {
     };
     App.prototype.handleComputerAnimation = function (index, delay) {
         var _this = this;
-        setTimeout(function () {
+        this.compTurnAnimation = setTimeout(function () {
+            _this.animateTile(index);
             _this.tiles[index].classList.add('fade-out-tile');
-            _this.tiles[index].style =
-                'transform: rotateY(180deg); transition: transform 500ms ease-out';
         }, delay);
     };
     App.prototype.cacheCtx = function () {
@@ -163,6 +189,7 @@ var App = (function () {
         var rand = Math.floor(Math.random() * 9);
         if (rand === 0 && !this.tilesDisabled[0]) {
             if (this.playerChoice === 'x') {
+                this.handleComputerAnimation(0, 1000);
                 this.drawO(0);
                 this.checkWin();
             }
@@ -174,6 +201,7 @@ var App = (function () {
         }
         else if (rand === 1 && !this.tilesDisabled[1]) {
             if (this.playerChoice === 'x') {
+                this.handleComputerAnimation(1, 1000);
                 this.drawO(1);
                 this.checkWin();
             }
@@ -185,6 +213,7 @@ var App = (function () {
         }
         else if (rand === 2 && !this.tilesDisabled[2]) {
             if (this.playerChoice === 'x') {
+                this.handleComputerAnimation(2, 1000);
                 this.drawO(2);
                 this.checkWin();
             }
@@ -196,6 +225,7 @@ var App = (function () {
         }
         else if (rand === 3 && !this.tilesDisabled[3]) {
             if (this.playerChoice === 'x') {
+                this.handleComputerAnimation(3, 1000);
                 this.drawO(3);
                 this.checkWin();
             }
@@ -207,6 +237,7 @@ var App = (function () {
         }
         else if (rand === 4 && !this.tilesDisabled[4]) {
             if (this.playerChoice === 'x') {
+                this.handleComputerAnimation(4, 1000);
                 this.drawO(4);
                 this.checkWin();
             }
@@ -217,6 +248,7 @@ var App = (function () {
         }
         else if (rand === 5 && !this.tilesDisabled[5]) {
             if (this.playerChoice === 'x') {
+                this.handleComputerAnimation(5, 1000);
                 this.drawO(5);
                 this.checkWin();
             }
@@ -228,6 +260,7 @@ var App = (function () {
         }
         else if (rand === 6 && !this.tilesDisabled[6]) {
             if (this.playerChoice === 'x') {
+                this.handleComputerAnimation(6, 1000);
                 this.drawO(6);
                 this.checkWin();
             }
@@ -239,6 +272,7 @@ var App = (function () {
         }
         else if (rand === 7 && !this.tilesDisabled[7]) {
             if (this.playerChoice === 'x') {
+                this.handleComputerAnimation(7, 1000);
                 this.drawO(7);
                 this.checkWin();
             }
@@ -250,6 +284,7 @@ var App = (function () {
         }
         else if (rand === 8 && !this.tilesDisabled[8]) {
             if (this.playerChoice === 'x') {
+                this.handleComputerAnimation(8, 1000);
                 this.drawO(8);
                 this.checkWin();
             }
@@ -411,7 +446,7 @@ var App = (function () {
         // Game is over, wipe board.
         setTimeout(function () {
             _this.clearBoard();
-        }, 1500);
+        }, 2200);
         // If user won, do nothing for now.
         // If computer won, make it go first for next game.
         if (this.winner !== this.playerChoice && this.numOfPlayers === 1) {
