@@ -9,7 +9,7 @@ body {
     left: 50%;
     margin-left: -50px;
     position: absolute;
-    top: 715px;
+    top: 755px;
     width: 100px;
 
     &:hover {
@@ -23,8 +23,16 @@ body {
   & > h3 {
     color: #fff;
     font-size: 3em;
-    margin-top: 2%;
+    margin-top: -1%;
     text-shadow: 2px 2px 10px #000;
+  }
+
+  .x-turn,
+  .o-turn {
+    left: 0;
+    padding: .5% 1%;
+    position: relative;
+    top: 300px;
   }
 }
 
@@ -105,7 +113,7 @@ body {
   margin-left: -17%;
   padding: 5% 0;
   position: relative;
-  top: 140px;
+  top: 175px;
   width: 34%;
 
   .tile {
