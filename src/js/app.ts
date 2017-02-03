@@ -19,7 +19,6 @@ class App {
   ];
 
   public init(): void {
-    console.log('init ran');
     this.cacheTiles();
     this.cacheCtx();
     this.manualReset();
@@ -138,12 +137,6 @@ class App {
     const timeout = this.playerChoice === 'x'
       ? 300
       : 1200;
-    // if (this.playerChoice === 'o') {
-    //   setTimeout(() => {
-    //     this.animateTile(index);
-    //   }, timeout);
-    // }
-
     setTimeout(() => {
       this.ctx[index].strokeStyle = 'white';
       this.ctx[index].lineCap = 'round';
@@ -457,14 +450,14 @@ class App {
     // Game is over, wipe board.
     setTimeout(() => {
       this.clearBoard();
-    }, 2200);
+    }, 2100);
 
     // If user won, do nothing for now.
     // If computer won, make it go first for next game.
     if (this.winner !== this.playerChoice && this.numOfPlayers === 1) {
       setTimeout(() => {
         this.computerTurn();
-      }, 1700);
+      }, 2500);
     }
 
   }
