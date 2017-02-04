@@ -1,3 +1,6 @@
+ interface Element {
+    animate;
+  }
 class App {
   private compTurnAnimation;
   private content: string[] = [];
@@ -17,7 +20,6 @@ class App {
     0, 0, 0,
     0, 0, 0,
   ];
-
   public init(): void {
     this.cacheTiles();
     this.cacheCtx();
@@ -55,6 +57,7 @@ class App {
     const xChoice: Element = document.querySelector('.x');
     xChoice.addEventListener('click', () => {
       this.playerChoice = 'x';
+      this.toggleX();
       xOroOverlay.classList.add('hide-overlay');
       setTimeout(() => {
         xOroOverlay.classList.add('remove-overlay');
@@ -64,12 +67,12 @@ class App {
     const oChoice: Element = document.querySelector('.o');
     oChoice.addEventListener('click', () => {
       this.playerChoice = 'o';
+      this.toggleO();
       xOroOverlay.classList.add('hide-overlay');
       setTimeout(() => {
         xOroOverlay.classList.add('remove-overlay');
       }, 650);
     });
-
   }
 
   public draw(index): void {
@@ -148,8 +151,9 @@ class App {
       this.ctx[index].lineTo(20, 80);
       this.ctx[index].stroke();
       this.ctx[index].closePath();
-      }, timeout);
-
+      this.hideXMsg();
+      this.showOMsg();
+    }, timeout);
   }
 
   private drawO(index): void {
@@ -174,8 +178,9 @@ class App {
       this.ctx[index].arc(50, 50, 34, 0, Math.PI * 2, false);
       this.ctx[index].stroke();
       this.ctx[index].closePath();
+      this.hideOMsg();
+      this.showXMsg();
     }, drawDelay);
-
   }
 
   private cacheTiles(): void {
@@ -449,6 +454,13 @@ class App {
 
     // Game is over, wipe board.
     setTimeout(() => {
+      if (this.winner === 'x') {
+        this.hideOMsg();
+        this.showXMsg();
+      } else {
+        this.hideXMsg();
+        this.showOMsg();
+      }
       this.clearBoard();
     }, 2100);
 
@@ -493,6 +505,96 @@ class App {
         transition: background 300ms ease-out;
       `;
     }
+  }
+
+  private hideXMsg(): void {
+    const xMsg = document.querySelector('.x-turn');
+    xMsg.animate(
+      [
+        {
+         transform: 'translateY(0px)',
+        },
+        {
+         transform: 'translateY(50px)',
+        },
+      ],
+      {
+       direction: 'normal',
+       duration: 800,
+       easing: 'ease-in-out',
+       fill: 'forwards',
+       iterations: 1,
+      },
+     );
+  }
+
+  private showXMsg(): void {
+    const xMsg = document.querySelector('.x-turn');
+    xMsg.animate(
+      [
+       { transform: 'translateY(50px)' },
+       { transform: 'translateY(0px)' },
+      ],
+      {
+       direction: 'normal',
+       duration: 800,
+       easing: 'ease-in-out',
+       fill: 'forwards',
+       iterations: 1,
+      },
+     );
+  }
+
+  private hideOMsg(): void {
+    const oMsg: Element = document.querySelector('.o-turn');
+    oMsg.animate(
+      [
+        {
+          transform: 'translateY(0px)',
+        },
+        {
+          transform: 'translateY(50px)',
+        },
+      ],
+      {
+        direction: 'normal',
+        duration: 800,
+        easing: 'ease-in-out',
+        fill: 'forwards',
+        iterations: 1,
+      },
+    );
+  }
+
+  private showOMsg(): void {
+    const oMsg: Element = document.querySelector('.o-turn');
+    oMsg.animate(
+      [
+        {
+          transform: 'translateY(50px)',
+        },
+        {
+          transform: 'translateY(0px)',
+        },
+      ],
+      {
+        direction: 'normal',
+        duration: 800,
+        easing: 'ease-in-out',
+        fill: 'forwards',
+        iterations: 1,
+      },
+    );
+  }
+
+  private toggleX(): void {
+    this.hideOMsg();
+    this.showXMsg();
+  }
+
+  private toggleO(): void {
+    this.hideXMsg();
+    this.showOMsg();
   }
 
   private clearBoard(): void {

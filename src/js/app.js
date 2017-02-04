@@ -48,6 +48,7 @@ var App = (function () {
         var xChoice = document.querySelector('.x');
         xChoice.addEventListener('click', function () {
             _this.playerChoice = 'x';
+            _this.toggleX();
             xOroOverlay.classList.add('hide-overlay');
             setTimeout(function () {
                 xOroOverlay.classList.add('remove-overlay');
@@ -56,6 +57,7 @@ var App = (function () {
         var oChoice = document.querySelector('.o');
         oChoice.addEventListener('click', function () {
             _this.playerChoice = 'o';
+            _this.toggleO();
             xOroOverlay.classList.add('hide-overlay');
             setTimeout(function () {
                 xOroOverlay.classList.add('remove-overlay');
@@ -136,6 +138,8 @@ var App = (function () {
             _this.ctx[index].lineTo(20, 80);
             _this.ctx[index].stroke();
             _this.ctx[index].closePath();
+            _this.hideXMsg();
+            _this.showOMsg();
         }, timeout);
     };
     App.prototype.drawO = function (index) {
@@ -159,6 +163,8 @@ var App = (function () {
             _this.ctx[index].arc(50, 50, 34, 0, Math.PI * 2, false);
             _this.ctx[index].stroke();
             _this.ctx[index].closePath();
+            _this.hideOMsg();
+            _this.showXMsg();
         }, drawDelay);
     };
     App.prototype.cacheTiles = function () {
@@ -439,6 +445,14 @@ var App = (function () {
         }, 1500);
         // Game is over, wipe board.
         setTimeout(function () {
+            if (_this.winner === 'x') {
+                _this.hideOMsg();
+                _this.showXMsg();
+            }
+            else {
+                _this.hideXMsg();
+                _this.showOMsg();
+            }
             _this.clearBoard();
         }, 2100);
         // If user won, do nothing for now.
@@ -468,6 +482,78 @@ var App = (function () {
         else if (this.tilesDisabled[index]) {
             this.tiles[index].style = "\n        background: #87ceeb;\n        transition: background 300ms ease-out;\n      ";
         }
+    };
+    App.prototype.hideXMsg = function () {
+        var xMsg = document.querySelector('.x-turn');
+        xMsg.animate([
+            {
+                transform: 'translateY(0px)'
+            },
+            {
+                transform: 'translateY(50px)'
+            },
+        ], {
+            direction: 'normal',
+            duration: 800,
+            easing: 'ease-in-out',
+            fill: 'forwards',
+            iterations: 1
+        });
+    };
+    App.prototype.showXMsg = function () {
+        var xMsg = document.querySelector('.x-turn');
+        xMsg.animate([
+            { transform: 'translateY(50px)' },
+            { transform: 'translateY(0px)' },
+        ], {
+            direction: 'normal',
+            duration: 800,
+            easing: 'ease-in-out',
+            fill: 'forwards',
+            iterations: 1
+        });
+    };
+    App.prototype.hideOMsg = function () {
+        var oMsg = document.querySelector('.o-turn');
+        oMsg.animate([
+            {
+                transform: 'translateY(0px)'
+            },
+            {
+                transform: 'translateY(50px)'
+            },
+        ], {
+            direction: 'normal',
+            duration: 800,
+            easing: 'ease-in-out',
+            fill: 'forwards',
+            iterations: 1
+        });
+    };
+    App.prototype.showOMsg = function () {
+        var oMsg = document.querySelector('.o-turn');
+        oMsg.animate([
+            {
+                transform: 'translateY(50px)'
+            },
+            {
+                transform: 'translateY(0px)'
+            },
+        ], {
+            direction: 'normal',
+            duration: 800,
+            easing: 'ease-in-out',
+            fill: 'forwards',
+            iterations: 1
+        });
+    };
+    App.prototype.toggleX = function () {
+        this.hideOMsg();
+        this.showXMsg();
+    };
+    App.prototype.toggleO = function () {
+        this.hideXMsg();
+        this.showOMsg();
     };
     App.prototype.clearBoard = function () {
         var _this = this;
