@@ -452,7 +452,7 @@ class App {
       this.updateScore();
     }, 1500);
 
-    // Game is over, wipe board.
+    // Game is over, wipe board.q
     setTimeout(() => {
       if (this.winner === 'x') {
         this.hideOMsg();
