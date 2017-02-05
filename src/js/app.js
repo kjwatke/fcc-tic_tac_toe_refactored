@@ -244,6 +244,7 @@ var App = (function () {
             else {
                 this.handleComputerAnimation(4, 1000);
                 this.drawX(4);
+                this.checkWin();
             }
         }
         else if (rand === 5 && !this.tilesDisabled[5]) {
@@ -443,7 +444,7 @@ var App = (function () {
         setTimeout(function () {
             _this.updateScore();
         }, 1500);
-        // Game is over, wipe board.
+        // Game is over, wipe board.q
         setTimeout(function () {
             if (_this.winner === 'x') {
                 _this.hideOMsg();
