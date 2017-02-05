@@ -80,10 +80,12 @@ class App {
       return;
     }
     const tile = this.tiles[index];
+
     if (!this.tilesDisabled[index]) {
       this.tilesDisabled[index] = true;
       tile.classList.add('fade-out-tile');
       this.animateTile(index);
+
       if (this.playerChoice === 'x') {
         this.drawX(index);
       } else if (this.playerChoice === 'o') {
@@ -255,6 +257,7 @@ class App {
       } else {
         this.handleComputerAnimation(4, 1000);
         this.drawX(4);
+        this.checkWin();
       }
     } else if (rand === 5 && !this.tilesDisabled[5]) {
       if (this.playerChoice === 'x') {
