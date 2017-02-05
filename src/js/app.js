@@ -14,18 +14,21 @@ var App = (function () {
             0, 0, 0,
         ];
     }
+    // Set the game up to be played on initialization.
     App.prototype.init = function () {
         var _this = this;
         this.cacheTiles();
         this.cacheCtx();
         this.manualReset();
         this.updateScore();
+        // Prevent sparse arrays from being created.
         for (var i = 0; i < this.tiles.length; i += 1) {
             this.content[i] = '';
         }
         // Let the player select one player or two, set variable and then animate the overlay away, eventually removing it from document.
         var overlay = document.querySelector('.one-player-or-two');
         var onePlayer = document.querySelector('.one');
+        // Manage click for one player selection.
         onePlayer.addEventListener('click', function () {
             _this.numOfPlayers = 1;
             overlay.classList.add('hide-overlay');
@@ -34,6 +37,7 @@ var App = (function () {
                 overlay.classList.remove('hide-overlay');
             }, 650);
         });
+        // Manage click for two player selection.
         var twoPlayer = document.querySelector('.two');
         twoPlayer.addEventListener('click', function () {
             _this.numOfPlayers = 2;
@@ -46,41 +50,54 @@ var App = (function () {
         // Set playerChoice to x or o, depending on which button is clicked.
         var xOroOverlay = document.querySelector('.choose-symbol');
         var xChoice = document.querySelector('.x');
+        // Player chose to play as X, set the player up to play as X.
         xChoice.addEventListener('click', function () {
             _this.playerChoice = 'x';
-            _this.toggleX();
+            _this.hideOMsg();
+            _this.showXMsg();
             xOroOverlay.classList.add('hide-overlay');
             setTimeout(function () {
                 xOroOverlay.classList.add('remove-overlay');
             }, 650);
         });
+        // Player chose to play as O, set the player up to play as O.
         var oChoice = document.querySelector('.o');
         oChoice.addEventListener('click', function () {
             _this.playerChoice = 'o';
-            _this.toggleO();
+            _this.hideXMsg();
+            _this.showOMsg();
             xOroOverlay.classList.add('hide-overlay');
             setTimeout(function () {
                 xOroOverlay.classList.add('remove-overlay');
             }, 650);
         });
     };
+    // Will run when user clicks a tile.
     App.prototype.draw = function (index) {
+        // Check if game is out of possible turns or gameOver has been set to false.
         if (this.turnCount > 9 || this.gameOver) {
             return;
         }
         var tile = this.tiles[index];
+        // Tile that was clicked can't have been clicked before.
+        // If it hasn't been clicked, disable the tile for future,
+        // fade it out and run animateTile method.
         if (!this.tilesDisabled[index]) {
             this.tilesDisabled[index] = true;
             tile.classList.add('fade-out-tile');
             this.animateTile(index);
+            // Pick the right symbol to draw based on users choice at beginning of game.
             if (this.playerChoice === 'x') {
                 this.drawX(index);
             }
             else if (this.playerChoice === 'o') {
                 this.drawO(index);
             }
+            // After player chooses a tile, check to see if it's a winning pattern.
             this.checkWin();
+            // If there is still an open tile available and the game isn't over
             if (this.turnCount < 9 && !this.gameOver) {
+                // If single player game was selected, let the computer play. Else, switch to 2nd player.
                 if (this.numOfPlayers === 1) {
                     this.computerTurn();
                 }
@@ -95,6 +112,7 @@ var App = (function () {
             }
         }
     };
+    // Animate the tile when selected by a user or AI.
     App.prototype.animateTile = function (index) {
         this.tiles[index].animate([
             {
@@ -119,6 +137,7 @@ var App = (function () {
             iterations: 1
         });
     };
+    // Draw 'X' symbol on a tile.
     App.prototype.drawX = function (index) {
         var _this = this;
         this.turnCount++;
@@ -142,8 +161,11 @@ var App = (function () {
             _this.showOMsg();
         }, timeout);
     };
+    // Draw 'O' symbol on a tile.
     App.prototype.drawO = function (index) {
         var _this = this;
+        // Set a delay, if drawO is called by computer, we want a delay, to make the user think the AI is 'thinking'.
+        // If it isn't, we want to delay the drawing but not the animation.
         var animateDelay = this.playerChoice === 'x'
             ? 1200
             : 0;
@@ -153,9 +175,11 @@ var App = (function () {
         this.turnCount++;
         this.tilesDisabled[index] = true;
         this.content[index] = 'o';
+        // Fade out the tile.
         setTimeout(function () {
             _this.tiles[index].classList.add('fade-out-tile');
         }, animateDelay);
+        // Draw 'O' onto tile.
         setTimeout(function () {
             _this.ctx[index].strokeStyle = 'black';
             _this.ctx[index].beginPath();
@@ -167,12 +191,14 @@ var App = (function () {
             _this.showXMsg();
         }, drawDelay);
     };
+    // Store all the tiles html elements in an array for access later.
     App.prototype.cacheTiles = function () {
         for (var i = 0; i < 9; i += 1) {
             this.tiles[i] = document.querySelector(".canvas" + i);
             this.tilesDisabled[i] = false;
         }
     };
+    // In charge of running the tile animation with a delay to look similar to when a user clicks.
     App.prototype.handleComputerAnimation = function (index, delay) {
         var _this = this;
         this.compTurnAnimation = setTimeout(function () {
@@ -180,11 +206,20 @@ var App = (function () {
             _this.tiles[index].classList.add('fade-out-tile');
         }, delay);
     };
+    // Cache canvas context for each tile for use later.
     App.prototype.cacheCtx = function () {
         for (var i = 0; i < 9; i += 1) {
             this.ctx[i] = this.tiles[i].getContext('2d');
         }
     };
+    /*
+       Will be called whenever the computer needs to pick a tile to draw on.
+        This will never be called if user selects a 2 player game.
+        It checks to see that a tile is still enabled, animates the tile, draws,
+        the correct symbol and calls checkWin to see if it's a winning pattern.
+        If random num generated for tile selection is taken, it will call itself
+        and keep trying until it is found.
+     */
     App.prototype.computerTurn = function () {
         var rand = Math.floor(Math.random() * 9);
         if (rand === 0 && !this.tilesDisabled[0]) {
@@ -299,6 +334,10 @@ var App = (function () {
             this.computerTurn();
         }
     };
+    /*
+      Check for winning patterns. If winning pattern is currently on board,
+      gameOver is now true and call handleGameover to create a new Game.
+   */
     App.prototype.checkWin = function () {
         if ((this.content[0] === 'x') &&
             (this.content[1] === 'x') &&
@@ -401,6 +440,7 @@ var App = (function () {
             this.handleGameover('tie');
         }
     };
+    // Reset html of scoreboard to reflect values of xScore/oScore.
     App.prototype.updateScore = function () {
         // Set the X scoreboard.
         var xScoreboard = document.querySelector('.span-x-score');
@@ -409,6 +449,7 @@ var App = (function () {
         var oScoreboard = document.querySelector('.span-o-score');
         oScoreboard.innerHTML = String(this.oScore);
     };
+    // Called whenever game is out of enabled tiles or winning pattern is found.
     App.prototype.handleGameover = function (winner) {
         var _this = this;
         // Update the winner of the game.'
@@ -432,6 +473,7 @@ var App = (function () {
                 console.log("game over! Tie game");
             }, 700);
         }
+        // Testing purposes, log out the board to verify game is error free in logic.
         console.log('board: ', this.content);
         // Update the scoreboard.
         if (this.winner === 'x') {
@@ -484,6 +526,7 @@ var App = (function () {
             this.tiles[index].style = "\n        background: #87ceeb;\n        transition: background 300ms ease-out;\n      ";
         }
     };
+    // Animate the 'player x turn' down behind the game board.
     App.prototype.hideXMsg = function () {
         var xMsg = document.querySelector('.x-turn');
         xMsg.animate([
@@ -501,6 +544,7 @@ var App = (function () {
             iterations: 1
         });
     };
+    // Animate the 'player x turn' up above game board.
     App.prototype.showXMsg = function () {
         var xMsg = document.querySelector('.x-turn');
         xMsg.animate([
@@ -514,6 +558,7 @@ var App = (function () {
             iterations: 1
         });
     };
+    // Animate the 'player o turn' banner behind the game board.
     App.prototype.hideOMsg = function () {
         var oMsg = document.querySelector('.o-turn');
         oMsg.animate([
@@ -531,6 +576,7 @@ var App = (function () {
             iterations: 1
         });
     };
+    // Animate the 'player o turn' above game board.
     App.prototype.showOMsg = function () {
         var oMsg = document.querySelector('.o-turn');
         oMsg.animate([
@@ -548,14 +594,7 @@ var App = (function () {
             iterations: 1
         });
     };
-    App.prototype.toggleX = function () {
-        this.hideOMsg();
-        this.showXMsg();
-    };
-    App.prototype.toggleO = function () {
-        this.hideXMsg();
-        this.showOMsg();
-    };
+    // When game is over or reset button is pressed, reset values and wipe board.
     App.prototype.clearBoard = function () {
         var _this = this;
         // Set an '' to for each possible tile. This will avoid sparse arrays later.
@@ -580,14 +619,14 @@ var App = (function () {
         // Remove winner.
         this.winner = '';
     };
+    // Reset game board, score, all variables assoicated with game.
+    // This will only be used when player hits reset button.
     App.prototype.manualReset = function () {
         var _this = this;
         var resetBtn = document.querySelector('.reload');
         resetBtn.addEventListener('click', function () {
             // Confirm the user actually wants to clear game and reset state.
-            var clear = prompt('Are you sure you want to clear games ?' +
-                'This will clear the board and the score' +
-                'Enter y to continue, anything else to abort');
+            var clear = prompt("\n                            Are you sure you want to clear games ?\n                            This will clear the board and the score.\n                            Enter y to continue, anything else to abort\n                          ");
             if (clear.toLowerCase() === 'y') {
                 // Player confirmed, clear the game score and board.
                 _this.clearBoard();

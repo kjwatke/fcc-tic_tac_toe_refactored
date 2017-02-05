@@ -20,12 +20,15 @@ class App {
     0, 0, 0,
     0, 0, 0,
   ];
+
+  // Set the game up to be played on initialization.
   public init(): void {
     this.cacheTiles();
     this.cacheCtx();
     this.manualReset();
     this.updateScore();
 
+    // Prevent sparse arrays from being created.
     for (let i = 0; i < this.tiles.length; i += 1) {
       this.content[i] = '';
     }
@@ -33,6 +36,8 @@ class App {
     // Let the player select one player or two, set variable and then animate the overlay away, eventually removing it from document.
     const overlay = document.querySelector('.one-player-or-two');
     const onePlayer = document.querySelector('.one');
+
+    // Manage click for one player selection.
     onePlayer.addEventListener('click', () => {
       this.numOfPlayers = 1;
       overlay.classList.add('hide-overlay');
@@ -42,6 +47,7 @@ class App {
       }, 650);
     });
 
+    // Manage click for two player selection.
     const twoPlayer = document.querySelector('.two');
     twoPlayer.addEventListener('click', () => {
       this.numOfPlayers = 2;
@@ -55,19 +61,24 @@ class App {
     // Set playerChoice to x or o, depending on which button is clicked.
     const xOroOverlay: Element = document.querySelector('.choose-symbol');
     const xChoice: Element = document.querySelector('.x');
+
+    // Player chose to play as X, set the player up to play as X.
     xChoice.addEventListener('click', () => {
       this.playerChoice = 'x';
-      this.toggleX();
+      this.hideOMsg();
+      this.showXMsg();
       xOroOverlay.classList.add('hide-overlay');
       setTimeout(() => {
         xOroOverlay.classList.add('remove-overlay');
       }, 650);
     });
 
+    // Player chose to play as O, set the player up to play as O.
     const oChoice: Element = document.querySelector('.o');
     oChoice.addEventListener('click', () => {
       this.playerChoice = 'o';
-      this.toggleO();
+      this.hideXMsg();
+      this.showOMsg();
       xOroOverlay.classList.add('hide-overlay');
       setTimeout(() => {
         xOroOverlay.classList.add('remove-overlay');
@@ -75,26 +86,38 @@ class App {
     });
   }
 
+  // Will run when user clicks a tile.
   public draw(index): void {
+
+    // Check if game is out of possible turns or gameOver has been set to false.
     if (this.turnCount > 9 || this.gameOver) {
       return;
     }
+
     const tile = this.tiles[index];
 
+    // Tile that was clicked can't have been clicked before.
+    // If it hasn't been clicked, disable the tile for future,
+    // fade it out and run animateTile method.
     if (!this.tilesDisabled[index]) {
       this.tilesDisabled[index] = true;
       tile.classList.add('fade-out-tile');
       this.animateTile(index);
 
+      // Pick the right symbol to draw based on users choice at beginning of game.
       if (this.playerChoice === 'x') {
         this.drawX(index);
       } else if (this.playerChoice === 'o') {
         this.drawO(index);
       }
 
+      // After player chooses a tile, check to see if it's a winning pattern.
       this.checkWin();
 
+      // If there is still an open tile available and the game isn't over
       if (this.turnCount < 9 && !this.gameOver) {
+
+        // If single player game was selected, let the computer play. Else, switch to 2nd player.
         if (this.numOfPlayers === 1) {
           this.computerTurn();
         } else if (this.numOfPlayers > 1) {
@@ -108,6 +131,7 @@ class App {
     }
   }
 
+  // Animate the tile when selected by a user or AI.
   private animateTile(index): void {
     this.tiles[index].animate([
       {
@@ -135,6 +159,7 @@ class App {
     );
   }
 
+  // Draw 'X' symbol on a tile.
   private drawX(index): void {
     this.turnCount++;
     this.content[index] = 'x';
@@ -158,7 +183,11 @@ class App {
     }, timeout);
   }
 
+  // Draw 'O' symbol on a tile.
   private drawO(index): void {
+
+    // Set a delay, if drawO is called by computer, we want a delay, to make the user think the AI is 'thinking'.
+    // If it isn't, we want to delay the drawing but not the animation.
     const animateDelay = this.playerChoice === 'x'
       ? 1200
       : 0;
@@ -169,10 +198,12 @@ class App {
     this.tilesDisabled[index] = true;
     this.content[index] = 'o';
 
+    // Fade out the tile.
     setTimeout(() => {
       this.tiles[index].classList.add('fade-out-tile');
     }, animateDelay);
 
+    // Draw 'O' onto tile.
     setTimeout(() => {
       this.ctx[index].strokeStyle = 'black';
       this.ctx[index].beginPath();
@@ -185,6 +216,7 @@ class App {
     }, drawDelay);
   }
 
+  // Store all the tiles html elements in an array for access later.
   private cacheTiles(): void {
     for (let i = 0; i < 9; i += 1) {
       this.tiles[i] = document.querySelector(`.canvas${i}`);
@@ -193,6 +225,7 @@ class App {
     }
   }
 
+  // In charge of running the tile animation with a delay to look similar to when a user clicks.
   private handleComputerAnimation(index, delay): void {
     this.compTurnAnimation = setTimeout(() => {
       this.animateTile(index);
@@ -200,12 +233,21 @@ class App {
     }, delay);
   }
 
+  // Cache canvas context for each tile for use later.
   private cacheCtx(): void {
     for (let i = 0; i < 9; i += 1) {
       this.ctx[i] = this.tiles[i].getContext('2d');
     }
   }
 
+  /*
+     Will be called whenever the computer needs to pick a tile to draw on.
+      This will never be called if user selects a 2 player game.
+      It checks to see that a tile is still enabled, animates the tile, draws,
+      the correct symbol and calls checkWin to see if it's a winning pattern.
+      If random num generated for tile selection is taken, it will call itself
+      and keep trying until it is found.
+   */
   private computerTurn(): void {
     const rand = Math.floor(Math.random() * 9);
 
@@ -304,6 +346,10 @@ class App {
     }
   }
 
+   /*
+     Check for winning patterns. If winning pattern is currently on board,
+     gameOver is now true and call handleGameover to create a new Game.
+  */
   private checkWin(): void {
 
     if ( (this.content[0] === 'x') &&
@@ -409,6 +455,7 @@ class App {
     }
   }
 
+  // Reset html of scoreboard to reflect values of xScore/oScore.
   private updateScore(): void {
     // Set the X scoreboard.
     const xScoreboard: Element = document.querySelector('.span-x-score');
@@ -420,6 +467,7 @@ class App {
 
   }
 
+  // Called whenever game is out of enabled tiles or winning pattern is found.
   private handleGameover(winner): void {
      // Update the winner of the game.'
     if (winner === 'x' && winner !== 'tie') {
@@ -441,6 +489,7 @@ class App {
       }, 700);
     }
 
+    // Testing purposes, log out the board to verify game is error free in logic.
     console.log('board: ', this.content);
 
     // Update the scoreboard.
@@ -510,6 +559,7 @@ class App {
     }
   }
 
+  // Animate the 'player x turn' down behind the game board.
   private hideXMsg(): void {
     const xMsg = document.querySelector('.x-turn');
     xMsg.animate(
@@ -531,6 +581,7 @@ class App {
      );
   }
 
+  // Animate the 'player x turn' up above game board.
   private showXMsg(): void {
     const xMsg = document.querySelector('.x-turn');
     xMsg.animate(
@@ -548,6 +599,7 @@ class App {
      );
   }
 
+  // Animate the 'player o turn' banner behind the game board.
   private hideOMsg(): void {
     const oMsg: Element = document.querySelector('.o-turn');
     oMsg.animate(
@@ -569,6 +621,7 @@ class App {
     );
   }
 
+  // Animate the 'player o turn' above game board.
   private showOMsg(): void {
     const oMsg: Element = document.querySelector('.o-turn');
     oMsg.animate(
@@ -590,17 +643,9 @@ class App {
     );
   }
 
-  private toggleX(): void {
-    this.hideOMsg();
-    this.showXMsg();
-  }
-
-  private toggleO(): void {
-    this.hideXMsg();
-    this.showOMsg();
-  }
-
+  // When game is over or reset button is pressed, reset values and wipe board.
   private clearBoard(): void {
+
     // Set an '' to for each possible tile. This will avoid sparse arrays later.
     for (let i = 0; i < 9; i += 1) {
       this.content[i] = '';
@@ -630,14 +675,18 @@ class App {
 
   }
 
+  // Reset game board, score, all variables assoicated with game.
+  // This will only be used when player hits reset button.
   private manualReset(): void {
     const resetBtn = document.querySelector('.reload');
     resetBtn.addEventListener('click', () => {
 
       // Confirm the user actually wants to clear game and reset state.
-      const clear: string = prompt('Are you sure you want to clear games ?' +
-                            'This will clear the board and the score' +
-                            'Enter y to continue, anything else to abort');
+      const clear: string = prompt(`
+                            Are you sure you want to clear games ?
+                            This will clear the board and the score.
+                            Enter y to continue, anything else to abort
+                          `);
       if (clear.toLowerCase() === 'y') {
         // Player confirmed, clear the game score and board.
         this.clearBoard();
