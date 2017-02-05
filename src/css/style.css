@@ -1,5 +1,5 @@
 body {
-  background: #14BDAC;
+  background: #14bdac;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -48,9 +48,9 @@ body {
     margin-left: 2.5%; }
 
 .scoreboard {
-  -webkit-box-shadow: 0 4px 10px 2px black;
-  -moz-box-shadow: 0 4px 10px 2px black;
-  box-shadow: 0 4px 10px 2px black;
+  -webkit-box-shadow: 0 4px 10px 2px #000;
+  -moz-box-shadow: 0 4px 10px 2px #000;
+  box-shadow: 0 4px 10px 2px #000;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -71,7 +71,7 @@ body {
   width: 250px; }
   .scoreboard .x-container {
     background: #14bdac;
-    border-right: 1px solid black;
+    border-right: 1px solid #000;
     width: 50%; }
     .scoreboard .x-container span {
       font-size: 2.2em; }
@@ -90,7 +90,7 @@ body {
       border-top: 2px solid #000; }
   .scoreboard .o-container {
     background: #14bdac;
-    border-left: 1px solid black;
+    border-left: 1px solid #000;
     width: 50%; }
     .scoreboard .o-container span {
       font-size: 2.2em; }
@@ -103,7 +103,7 @@ body {
       color: #fff;
       font-size: 2.8em;
       position: relative;
-      text-shadow: 1px 1px 5px #000;
+      text-shadow: 1px 1px 5pd #000;
       top: 0; }
     .scoreboard .o-container hr {
       border-top: 2px solid #000; }
@@ -121,9 +121,9 @@ body {
     margin-bottom: 4px;
     margin-right: 2px; }
     .game-board .tile:hover {
-      -webkit-box-shadow: 1px 2px 15px 2px #000;
-      -moz-box-shadow: 1px 2px 15px 2px #000;
-      box-shadow: 1px 2px 15px 2px #000;
+      -webkit-box-shadow: 1px 2px 15px 2pd #000;
+      -moz-box-shadow: 1px 2px 15px 2pd #000;
+      box-shadow: 1px 2px 15px 2pd #000;
       height: 99px;
       -webkit-transition: background 650ms ease-in, height 200ms ease-out width 200ms ease-out, -webkit-box-shadow 200ms;
       transition: background 650ms ease-in, height 200ms ease-out width 200ms ease-out, -webkit-box-shadow 200ms;
@@ -141,8 +141,8 @@ body {
   transition: opacity 400ms ease-out; }
 
 .one-player-or-two {
-  background: #14BDAC;
-  color: white;
+  background: #14bdac;
+  color: #fff;
   height: 100vh;
   left: 0;
   position: absolute;
@@ -153,14 +153,14 @@ body {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    -webkit-box-shadow: 0 4px 20px 4px #000;
-    -moz-box-shadow: 0 4px 20px 4px #000;
-    box-shadow: 0 4px 20px 4px #000;
+    -webkit-box-shadow: 0 4px 20px 4pd #000;
+    -moz-box-shadow: 0 4px 20px 4pd #000;
+    box-shadow: 0 4px 20px 4pd #000;
     margin: 20% auto;
     padding: 5% 0;
     width: 30%; }
     .one-player-or-two .span-container button {
-      color: white;
+      color: #fff;
       margin-top: 5%; }
     .one-player-or-two .span-container h3 {
       margin-top: -4%; }
@@ -186,8 +186,8 @@ body {
     animation-timing-function: ease-in-out; }
 
 .choose-symbol {
-  background: #14BDAC;
-  color: white;
+  background: #14bdac;
+  color: #fff;
   height: 100vh;
   left: 0;
   position: absolute;
@@ -198,9 +198,9 @@ body {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    -webkit-box-shadow: 0 4px 20px 4px #000;
-    -moz-box-shadow: 0 4px 20px 4px #000;
-    box-shadow: 0 4px 20px 4px #000;
+    -webkit-box-shadow: 0 4px 20px 4pd #000;
+    -moz-box-shadow: 0 4px 20px 4pd #000;
+    box-shadow: 0 4px 20px 4pd #000;
     margin: 20% auto;
     padding: 5% 0;
     width: 30%; }
