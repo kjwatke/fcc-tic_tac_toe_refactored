@@ -47,6 +47,41 @@ body {
     margin-left: 2.5%;
   }
 
+  footer {
+    align-items: center;
+    background: $wht * .99;
+    border: 1px solid $blk;
+    color: $wht;
+    display: flex;
+    flex-flow: nowrap row;
+    justify-content: space-between;;
+    height: 15vh;
+    top: 120vh;
+    position: absolute;
+    width: 100%;
+
+    a:link {
+      color: $link-color;
+    }
+
+    a:visited {
+      color: purple;
+    }
+
+    .footer-child {
+      color: $blk;
+      width: 30%;
+
+      & .author-link {
+        margin-left: 2%;
+      }
+
+      & .link {
+        margin-right: 2%;
+      }
+    }
+  }
+
 }
 
 // Style the scoreboard.
@@ -252,4 +287,8 @@ body {
   to {
     opacity: 0;
   }
+}
+
+.fake-class {
+  display: block;
 }

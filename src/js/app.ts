@@ -699,6 +699,10 @@ class App {
     });
   }
 
+  public testMethod(): string {
+    return 'hello world';
+  }
+
 }
 
 const appInstance = new App();

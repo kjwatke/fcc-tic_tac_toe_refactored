@@ -46,6 +46,47 @@ body {
     margin-right: 2.5%; }
   body .o-turn {
     margin-left: 2.5%; }
+  body footer {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background: #fcfcfc;
+    border: 1px solid #000;
+    color: #fff;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: nowrap row;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: normal;
+    -ms-flex-flow: nowrap row;
+    flex-flow: nowrap row;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 15vh;
+    top: 120vh;
+    position: absolute;
+    width: 100%; }
+    body footer a:link {
+      color: #00d1b2; }
+    body footer a:visited {
+      color: purple; }
+    body footer .footer-child {
+      color: #000;
+      width: 30%; }
+      body footer .footer-child .author-link {
+        margin-left: 2%; }
+      body footer .footer-child .link {
+        margin-right: 2%; }
 
 .scoreboard {
   -webkit-box-shadow: 0 4px 10px 2px #000;
@@ -289,3 +330,6 @@ body {
     opacity: 1; }
   to {
     opacity: 0; } }
+
+.fake-class {
+  display: block; }
