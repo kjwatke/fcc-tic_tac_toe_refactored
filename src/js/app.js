@@ -465,16 +465,47 @@ var App = (function () {
         // If x or o passed in, alert players of winner, else, alert of tie game.
         if (winner !== 'tie') {
             setTimeout(function () {
-                console.log("game over! " + _this.winner + " won");
-            }, 700);
+                var msg = document.createElement('div');
+                msg.classList.add('game-over-msg');
+                msg.innerHTML = "<span>" + _this.winner + " won</span>";
+                document.body.appendChild(msg);
+                msg.animate([
+                    {
+                        opacity: 0,
+                        transform: 'translateX(200px)'
+                    },
+                    {
+                        opacity: 1,
+                        transform: 'translateX(-20px)'
+                    },
+                    {
+                        opacity: 1,
+                        transform: 'translateX(0px)'
+                    },
+                ], {
+                    direction: 'alternate',
+                    duration: 1200,
+                    easing: 'ease-in-out',
+                    iterations: 1
+                });
+                // Remove the message from game board.
+                setTimeout(function () {
+                    document.body.removeChild(msg);
+                }, 2500);
+            }, 400);
         }
         else {
             setTimeout(function () {
-                console.log("game over! Tie game");
-            }, 700);
+                var msg = document.createElement('div');
+                msg.classList.add('game-over-msg');
+                msg.innerHTML = "<span>Tie Game</span>";
+                document.body.appendChild(msg);
+                // Remove the message from game board.
+                setTimeout(function () {
+                    document.body.removeChild(msg);
+                }, 2500);
+            }, 400);
         }
-        // Testing purposes, log out the board to verify game is error free in logic.
-        console.log('board: ', this.content);
         // Update the scoreboard.
         if (this.winner === 'x') {
             this.xScore += 1;
@@ -636,9 +667,6 @@ var App = (function () {
                 _this.updateScore();
             }
         });
-    };
-    App.prototype.testMethod = function () {
-        return 'hello world';
     };
     return App;
 }());

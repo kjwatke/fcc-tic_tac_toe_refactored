@@ -481,16 +481,51 @@ class App {
     // If x or o passed in, alert players of winner, else, alert of tie game.
     if (winner !== 'tie') {
       setTimeout(() => {
-        console.log(`game over! ${this.winner} won`);
-      }, 700);
+        const msg = document.createElement('div');
+        msg.classList.add('game-over-msg');
+        msg.innerHTML = `<span>${this.winner} won</span>`;
+        document.body.appendChild(msg);
+        msg.animate(
+          [
+            {
+              opacity: 0,
+              transform: 'translateX(200px)',
+            },
+            {
+              opacity: 1,
+              transform: 'translateX(-20px)',
+            },
+            {
+              opacity: 1,
+              transform: 'translateX(0px)',
+            },
+          ],
+          {
+            direction: 'alternate',
+            duration: 1200,
+            easing: 'ease-in-out',
+            iterations: 1,
+          },
+        );
+
+        // Remove the message from game board.
+        setTimeout(() => {
+          document.body.removeChild(msg);
+        }, 2500);
+      }, 400);
     } else {
       setTimeout(() => {
-        console.log(`game over! Tie game`);
-      }, 700);
-    }
+        const msg = document.createElement('div');
+        msg.classList.add('game-over-msg');
+        msg.innerHTML = `<span>Tie Game</span>`;
+        document.body.appendChild(msg);
 
-    // Testing purposes, log out the board to verify game is error free in logic.
-    console.log('board: ', this.content);
+        // Remove the message from game board.
+        setTimeout(() => {
+          document.body.removeChild(msg);
+        }, 2500);
+      }, 400);
+    }
 
     // Update the scoreboard.
     if (this.winner === 'x') {
@@ -698,11 +733,6 @@ class App {
       }
     });
   }
-
-  public testMethod(): string {
-    return 'hello world';
-  }
-
 }
 
 const appInstance = new App();

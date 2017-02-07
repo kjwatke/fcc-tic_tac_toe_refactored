@@ -420,7 +420,20 @@ var App = (function () {
         }
         if (winner !== 'tie') {
             setTimeout(function () {
-                console.log("game over! " + _this.winner + " won");
+                if (_this.winner === 'x') {
+                    console.log('x' + ' won');
+                    var winMsg = document.createElement('div');
+                    winMsg.classList.add('x-won');
+                    winMsg.innerHTML = 'X Player Won';
+                    document.body.appendChild(winMsg);
+                }
+                else if (_this.winner === 'o') {
+                    console.log('o' + ' won');
+                    var winMsg = document.createElement('div');
+                    winMsg.classList.add('o-won');
+                    winMsg.innerHTML = 'O Player Won';
+                    document.body.appendChild(winMsg);
+                }
             }, 700);
         }
         else {
