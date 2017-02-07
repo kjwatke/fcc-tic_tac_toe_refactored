@@ -254,91 +254,127 @@ class App {
       if (this.playerChoice === 'x') {
         this.handleComputerAnimation(0, 1000);
         this.drawO(0);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       } else {
         this.handleComputerAnimation(0, 1000);
         this.drawX(0);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       }
     } else if (rand === 1 && !this.tilesDisabled[1]) {
       if (this.playerChoice === 'x') {
         this.handleComputerAnimation(1, 1000);
         this.drawO(1);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       } else {
         this.handleComputerAnimation(1, 1000);
         this.drawX(1);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       }
     } else if (rand === 2 && !this.tilesDisabled[2]) {
       if (this.playerChoice === 'x') {
         this.handleComputerAnimation(2, 1000);
         this.drawO(2);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       } else {
         this.handleComputerAnimation(2, 1000);
         this.drawX(2);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       }
     } else if (rand === 3 && !this.tilesDisabled[3]) {
       if (this.playerChoice === 'x') {
         this.handleComputerAnimation(3, 1000);
         this.drawO(3);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       } else {
         this.handleComputerAnimation(3, 1000);
         this.drawX(3);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       }
     } else if (rand === 4 && !this.tilesDisabled[4]) {
       if (this.playerChoice === 'x') {
         this.handleComputerAnimation(4, 1000);
         this.drawO(4);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       } else {
         this.handleComputerAnimation(4, 1000);
         this.drawX(4);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       }
     } else if (rand === 5 && !this.tilesDisabled[5]) {
       if (this.playerChoice === 'x') {
         this.handleComputerAnimation(5, 1000);
         this.drawO(5);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       } else {
         this.handleComputerAnimation(5, 1000);
         this.drawX(5);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       }
     } else if (rand === 6 && !this.tilesDisabled[6]) {
       if (this.playerChoice === 'x') {
         this.handleComputerAnimation(6, 1000);
         this.drawO(6);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       } else {
         this.handleComputerAnimation(6, 1000);
         this.drawX(6);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       }
     } else if (rand === 7 && !this.tilesDisabled[7]) {
       if (this.playerChoice === 'x') {
         this.handleComputerAnimation(7, 1000);
         this.drawO(7);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       } else {
         this.handleComputerAnimation(7, 1000);
         this.drawX(7);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       }
     } else if (rand === 8 && !this.tilesDisabled[8]) {
       if (this.playerChoice === 'x') {
         this.handleComputerAnimation(8, 1000);
         this.drawO(8);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       } else {
         this.handleComputerAnimation(8, 1000);
         this.drawX(8);
-        this.checkWin();
+        setTimeout(() => {
+          this.checkWin();
+        }, 1000);
       }
     } else {
       this.computerTurn();
@@ -501,7 +537,7 @@ class App {
           ],
           {
             direction: 'alternate',
-            duration: 1200,
+            duration: 1300,
             easing: 'ease-in-out',
             iterations: 1,
           },
@@ -510,8 +546,8 @@ class App {
         // Remove the message from game board.
         setTimeout(() => {
           document.body.removeChild(msg);
-        }, 2500);
-      }, 1000);
+        }, 3000);
+      }, 1200);
     } else {
       setTimeout(() => {
         const msg = document.createElement('div');
@@ -535,7 +571,7 @@ class App {
           ],
           {
             direction: 'alternate',
-            duration: 1200,
+            duration: 1300,
             easing: 'ease-in-out',
             iterations: 1,
           },
@@ -544,8 +580,8 @@ class App {
         // Remove the message from game board.
         setTimeout(() => {
           document.body.removeChild(msg);
-        }, 2500);
-      }, 1000);
+        }, 3000);
+      }, 1200);
     }
 
     // Update the scoreboard.
