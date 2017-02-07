@@ -250,7 +250,6 @@ class App {
    */
   private computerTurn(): void {
     const rand = Math.floor(Math.random() * 9);
-
     if (rand === 0 && !this.tilesDisabled[0]) {
       if (this.playerChoice === 'x') {
         this.handleComputerAnimation(0, 1000);
@@ -512,19 +511,41 @@ class App {
         setTimeout(() => {
           document.body.removeChild(msg);
         }, 2500);
-      }, 400);
+      }, 1000);
     } else {
       setTimeout(() => {
         const msg = document.createElement('div');
         msg.classList.add('game-over-msg');
         msg.innerHTML = `<span>Tie Game</span>`;
         document.body.appendChild(msg);
+        msg.animate(
+          [
+            {
+              opacity: 0,
+              transform: 'translateX(200px)',
+            },
+            {
+              opacity: 1,
+              transform: 'translateX(-20px)',
+            },
+            {
+              opacity: 1,
+              transform: 'translateX(0px)',
+            },
+          ],
+          {
+            direction: 'alternate',
+            duration: 1200,
+            easing: 'ease-in-out',
+            iterations: 1,
+          },
+        );
 
         // Remove the message from game board.
         setTimeout(() => {
           document.body.removeChild(msg);
         }, 2500);
-      }, 400);
+      }, 1000);
     }
 
     // Update the scoreboard.

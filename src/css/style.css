@@ -211,6 +211,7 @@ body {
     width: 30%; }
     .one-player-or-two .span-container button {
       color: #fff;
+      font-family: 'monaco';
       margin-top: 5%; }
     .one-player-or-two .span-container h3 {
       font-family: 'Sansita', sans-serif;
@@ -256,6 +257,7 @@ body {
     padding: 5% 0;
     width: 30%; }
     .choose-symbol .span-container button {
+      font-family: 'monaco';
       margin-top: 5%; }
     .choose-symbol .span-container h3 {
       font-family: 'Sansita', sans-serif;
