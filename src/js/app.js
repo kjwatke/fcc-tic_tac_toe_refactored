@@ -223,6 +223,252 @@ var App = (function () {
     App.prototype.computerTurn = function () {
         var _this = this;
         var rand = Math.floor(Math.random() * 9);
+        var compChoice = this.playerChoice === 'x'
+            ? 'o'
+            : 'x';
+        // If computer can win game, priortize winning over blocking move.
+        // Check top row for win.
+        if (this.content[0] === compChoice &&
+            this.content[1] === compChoice &&
+            !this.tilesDisabled[2]) {
+            rand = 2;
+        }
+        else if (this.content[1] === compChoice &&
+            this.content[2] === compChoice &&
+            !this.tilesDisabled[0]) {
+            rand = 0;
+        }
+        else if (this.content[0] === compChoice &&
+            this.content[2] === compChoice &&
+            this.tilesDisabled[1]) {
+            rand = 1;
+        }
+        else if (this.content[3] === compChoice &&
+            this.content[4] === compChoice &&
+            !this.tilesDisabled[5]) {
+            rand = 5;
+        }
+        else if (this.content[3] === compChoice &&
+            this.content[5] === compChoice &&
+            !this.tilesDisabled[4]) {
+            rand = 4;
+        }
+        else if (this.content[4] === compChoice &&
+            this.content[5] === compChoice &&
+            !this.tilesDisabled[3]) {
+            rand = 3;
+        }
+        else if (this.content[7] === compChoice &&
+            this.content[8] === compChoice &&
+            !this.tilesDisabled[6]) {
+            rand = 6;
+        }
+        else if (this.content[6] === compChoice &&
+            this.content[7] === compChoice &&
+            !this.tilesDisabled[8]) {
+            rand = 8;
+        }
+        else if (this.content[6] === compChoice &&
+            this.content[8] === compChoice &&
+            !this.tilesDisabled[7]) {
+            rand = 7;
+        }
+        else if (this.content[0] === compChoice &&
+            this.content[3] === compChoice &&
+            !this.tilesDisabled[6]) {
+            rand = 6;
+        }
+        else if (this.content[3] === compChoice &&
+            this.content[6] === compChoice &&
+            !this.tilesDisabled[0]) {
+            rand = 0;
+        }
+        else if (this.content[0] === compChoice &&
+            this.content[6] === compChoice &&
+            !this.tilesDisabled[3]) {
+            rand = 3;
+        }
+        else if (this.content[1] === compChoice &&
+            this.content[4] === compChoice &&
+            !this.tilesDisabled[7]) {
+            rand = 7;
+        }
+        else if (this.content[4] === compChoice &&
+            this.content[7] === compChoice &&
+            !this.tilesDisabled[1]) {
+            rand = 1;
+        }
+        else if (this.content[1] === compChoice &&
+            this.content[7] === compChoice &&
+            !this.tilesDisabled[4]) {
+            rand = 4;
+        }
+        else if (this.content[2] === compChoice &&
+            this.content[5] === compChoice &&
+            !this.tilesDisabled[8]) {
+            rand = 8;
+        }
+        else if (this.content[5] === compChoice &&
+            this.content[8] === compChoice &&
+            !this.tilesDisabled[3]) {
+            rand = 3;
+        }
+        else if (this.content[3] === compChoice &&
+            this.content[8] === compChoice &&
+            !this.tilesDisabled[5]) {
+            rand = 5;
+        }
+        else if (this.content[0] === compChoice &&
+            this.content[4] === compChoice &&
+            !this.tilesDisabled[8]) {
+            rand = 8;
+        }
+        else if (this.content[4] === compChoice &&
+            this.content[8] === compChoice &&
+            !this.tilesDisabled[0]) {
+            rand = 0;
+        }
+        else if (this.content[0] === compChoice &&
+            this.content[8] === compChoice &&
+            !this.tilesDisabled[4]) {
+            rand = 4;
+        }
+        else if (this.content[2] === compChoice &&
+            this.content[4] === compChoice &&
+            !this.tilesDisabled[6]) {
+            rand = 6;
+        }
+        else if (this.content[4] === compChoice &&
+            this.content[6] === compChoice &&
+            !this.tilesDisabled[2]) {
+            rand = 2;
+        }
+        else if (this.content[2] === compChoice &&
+            this.content[6] === compChoice &&
+            !this.tilesDisabled[4]) {
+            rand = 4;
+        }
+        else if (this.content[0] === this.playerChoice &&
+            this.content[1] === this.playerChoice &&
+            !this.tilesDisabled[2]) {
+            rand = 2;
+        }
+        else if (this.content[3] === this.playerChoice &&
+            this.content[4] === this.playerChoice &&
+            !this.tilesDisabled[5]) {
+            rand = 5;
+        }
+        else if (this.content[6] === this.playerChoice &&
+            this.content[7] === this.playerChoice &&
+            !this.tilesDisabled[8]) {
+            rand = 8;
+        }
+        else if (this.content[1] === this.playerChoice &&
+            this.content[2] === this.playerChoice &&
+            !this.tilesDisabled[0]) {
+            rand = 0;
+        }
+        else if (this.content[4] === this.playerChoice &&
+            this.content[5] === this.playerChoice &&
+            !this.tilesDisabled[3]) {
+            rand = 3;
+        }
+        else if (this.content[7] === this.playerChoice &&
+            this.content[8] === this.playerChoice &&
+            !this.tilesDisabled[6]) {
+            rand = 6;
+        }
+        else if (this.content[0] === this.playerChoice &&
+            this.content[2] === this.playerChoice &&
+            !this.tilesDisabled[1]) {
+            rand = 1;
+        }
+        else if (this.content[3] === this.playerChoice &&
+            this.content[5] === this.playerChoice &&
+            !this.tilesDisabled[4]) {
+            rand = 4;
+        }
+        else if (this.content[6] === this.playerChoice &&
+            this.content[8] === this.playerChoice &&
+            !this.tilesDisabled[7]) {
+            rand = 7;
+        }
+        else if (this.content[3] === this.playerChoice &&
+            this.content[6] === this.playerChoice &&
+            !this.tilesDisabled[0]) {
+            rand = 0;
+        }
+        else if (this.content[4] === this.playerChoice &&
+            this.content[7] === this.playerChoice &&
+            !this.tilesDisabled[1]) {
+            rand = 1;
+        }
+        else if (this.content[5] === this.playerChoice &&
+            this.content[8] === this.playerChoice &&
+            !this.tilesDisabled[2]) {
+            rand = 2;
+        }
+        else if (this.content[0] === this.playerChoice &&
+            this.content[3] === this.playerChoice &&
+            !this.tilesDisabled[6]) {
+            rand = 6;
+        }
+        else if (this.content[1] === this.playerChoice &&
+            this.content[4] === this.playerChoice &&
+            !this.tilesDisabled[7]) {
+            rand = 7;
+        }
+        else if (this.content[2] === this.playerChoice &&
+            this.content[5] === this.playerChoice &&
+            !this.tilesDisabled[8]) {
+            rand = 8;
+        }
+        else if (this.content[0] === this.playerChoice &&
+            this.content[6] === this.playerChoice &&
+            !this.tilesDisabled[3]) {
+            rand = 3;
+        }
+        else if (this.content[1] === this.playerChoice &&
+            this.content[7] === this.playerChoice &&
+            !this.tilesDisabled[4]) {
+            rand = 4;
+        }
+        else if (this.content[2] === this.playerChoice &&
+            this.content[7] === this.playerChoice &&
+            !this.tilesDisabled[5]) {
+            rand = 5;
+        }
+        else if (this.content[0] === this.playerChoice &&
+            this.content[4] === this.playerChoice &&
+            !this.tilesDisabled[8]) {
+            rand = 8;
+        }
+        else if (this.content[4] === this.playerChoice &&
+            this.content[8] === this.playerChoice &&
+            !this.tilesDisabled[0]) {
+            rand = 0;
+        }
+        else if (this.content[0] === this.playerChoice &&
+            this.content[8] === this.playerChoice &&
+            !this.tilesDisabled[4]) {
+            rand = 4;
+        }
+        else if (this.content[2] === this.playerChoice &&
+            this.content[4] === this.playerChoice &&
+            !this.tilesDisabled[6]) {
+            rand = 6;
+        }
+        else if (this.content[4] === this.playerChoice &&
+            this.content[6] === this.playerChoice &&
+            !this.tilesDisabled[2]) {
+            rand = 2;
+        }
+        else if (this.content[2] === this.playerChoice &&
+            this.content[6] === this.playerChoice &&
+            !this.tilesDisabled[4]) {
+            rand = 4;
+        }
+        // Computer has picked a tile based on logic above, now executes turn.
         if (rand === 0 && !this.tilesDisabled[0]) {
             if (this.playerChoice === 'x') {
                 this.handleComputerAnimation(0, 1000);

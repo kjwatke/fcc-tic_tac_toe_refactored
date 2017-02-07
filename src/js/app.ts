@@ -1,6 +1,7 @@
- interface Element {
-    animate;
-  }
+interface Element {
+  animate;
+}
+
 class App {
   private compTurnAnimation;
   private content: string[] = [];
@@ -249,7 +250,233 @@ class App {
       and keep trying until it is found.
    */
   private computerTurn(): void {
-    const rand = Math.floor(Math.random() * 9);
+    let rand = Math.floor(Math.random() * 9);
+    const compChoice = this.playerChoice === 'x'
+      ? 'o'
+      : 'x';
+
+    // If computer can win game, priortize winning over blocking move.
+    // Check top row for win.
+    if (this.content[0] === compChoice &&
+        this.content[1] === compChoice &&
+        !this.tilesDisabled[2]) {
+          rand = 2;
+    } else if (this.content[1] === compChoice &&
+               this.content[2] === compChoice &&
+               !this.tilesDisabled[0]) {
+          rand = 0;
+    } else if (this.content[0] === compChoice &&
+               this.content[2] === compChoice &&
+               this.tilesDisabled[1]) {
+          rand = 1;
+
+    // Check middle row for win.
+    } else if (this.content[3] === compChoice &&
+               this.content[4] === compChoice &&
+               !this.tilesDisabled[5]) {
+          rand = 5;
+    } else if (this.content[3] === compChoice &&
+               this.content[5] === compChoice &&
+               !this.tilesDisabled[4]) {
+          rand = 4;
+    } else if (this.content[4] === compChoice &&
+               this.content[5] === compChoice &&
+               !this.tilesDisabled[3]) {
+          rand = 3;
+
+    // Check for win on bottom row.
+    } else if (this.content[7] === compChoice &&
+             this.content[8] === compChoice &&
+             !this.tilesDisabled[6]) {
+          rand = 6;
+    } else if (this.content[6] === compChoice &&
+               this.content[7] === compChoice &&
+               !this.tilesDisabled[8]) {
+          rand = 8;
+    } else if (this.content[6] === compChoice &&
+               this.content[8] === compChoice &&
+               !this.tilesDisabled[7]) {
+          rand = 7;
+
+    // Check left column for win.
+    } else if (this.content[0] === compChoice &&
+               this.content[3] === compChoice &&
+               !this.tilesDisabled[6]) {
+          rand = 6;
+    } else if (this.content[3] === compChoice &&
+               this.content[6] === compChoice &&
+               !this.tilesDisabled[0]) {
+          rand = 0;
+    } else if (this.content[0] === compChoice &&
+               this.content[6] === compChoice &&
+               !this.tilesDisabled[3]) {
+          rand = 3;
+
+    // Check middle column for win.
+    } else if (this.content[1] === compChoice &&
+               this.content[4] === compChoice &&
+               !this.tilesDisabled[7]) {
+          rand = 7;
+    } else if (this.content[4] === compChoice &&
+               this.content[7] === compChoice &&
+               !this.tilesDisabled[1]) {
+          rand = 1;
+    } else if (this.content[1] === compChoice &&
+               this.content[7] === compChoice &&
+               !this.tilesDisabled[4]) {
+          rand = 4;
+
+    // Check right column for win.
+    } else if (this.content[2] === compChoice &&
+               this.content[5] === compChoice &&
+               !this.tilesDisabled[8]) {
+          rand = 8;
+    } else if (this.content[5] === compChoice &&
+               this.content[8] === compChoice &&
+               !this.tilesDisabled[3]) {
+          rand = 3;
+    } else if (this.content[3] === compChoice &&
+               this.content[8] === compChoice &&
+               !this.tilesDisabled[5]) {
+          rand = 5;
+
+    // Check both diagonals for win.
+    } else if (this.content[0] === compChoice &&
+               this.content[4] === compChoice &&
+               !this.tilesDisabled[8]) {
+          rand = 8;
+    } else if (this.content[4] === compChoice &&
+               this.content[8] === compChoice &&
+               !this.tilesDisabled[0]) {
+          rand = 0;
+    } else if (this.content[0] ===  compChoice &&
+               this.content[8] === compChoice &&
+               !this.tilesDisabled[4]) {
+          rand = 4;
+    } else if (this.content[2] === compChoice &&
+               this.content[4] === compChoice &&
+               !this.tilesDisabled[6]) {
+          rand = 6;
+    } else if (this.content[4] === compChoice &&
+               this.content[6] === compChoice &&
+               !this.tilesDisabled[2]) {
+          rand = 2;
+    } else if (this.content[2] === compChoice &&
+               this.content[6] === compChoice &&
+               !this.tilesDisabled[4]) {
+            rand = 4;
+
+    // Prevent winning moves on right row.
+    } else if (this.content[0] === this.playerChoice &&
+        this.content[1] === this.playerChoice &&
+        !this.tilesDisabled[2]) {
+          rand = 2;
+    } else if (this.content[3] === this.playerChoice &&
+               this.content[4] === this.playerChoice &&
+               !this.tilesDisabled[5]) {
+          rand = 5;
+    } else if (this.content[6] === this.playerChoice &&
+               this.content[7] === this.playerChoice &&
+               !this.tilesDisabled[8]) {
+          rand = 8;
+
+    // Prevent winning moves on left row;
+    } else if (this.content[1] === this.playerChoice &&
+             this.content[2] === this.playerChoice &&
+             !this.tilesDisabled[0]) {
+          rand = 0;
+    } else if (this.content[4] === this.playerChoice &&
+             this.content[5] === this.playerChoice &&
+             !this.tilesDisabled[3]) {
+          rand = 3;
+    } else if (this.content[7] === this.playerChoice &&
+             this.content[8] === this.playerChoice &&
+             !this.tilesDisabled[6]) {
+          rand = 6;
+
+  // Prvent winning moves in center row.
+    } else if (this.content[0] === this.playerChoice &&
+           this.content[2] === this.playerChoice &&
+           !this.tilesDisabled[1]) {
+          rand = 1;
+    } else if (this.content[3] === this.playerChoice &&
+           this.content[5] === this.playerChoice &&
+           !this.tilesDisabled[4]) {
+          rand = 4;
+    } else if (this.content[6] === this.playerChoice &&
+           this.content[8] === this.playerChoice &&
+           !this.tilesDisabled[7]) {
+          rand = 7;
+
+    // Prevent winning moves on top row.
+    } else if (this.content[3] === this.playerChoice &&
+               this.content[6] === this.playerChoice &&
+               !this.tilesDisabled[0]) {
+          rand = 0;
+    } else if (this.content[4] === this.playerChoice &&
+              this.content[7] === this.playerChoice &&
+              !this.tilesDisabled[1]) {
+          rand = 1;
+    } else if (this.content[5] === this.playerChoice &&
+               this.content[8] === this.playerChoice &&
+               !this.tilesDisabled[2]) {
+          rand = 2;
+
+    // Prevent winning moves on bottom row.
+    } else if (this.content[0] === this.playerChoice &&
+               this.content[3] === this.playerChoice &&
+               !this.tilesDisabled[6]) {
+          rand = 6;
+    } else if (this.content[1] === this.playerChoice &&
+               this.content[4] === this.playerChoice &&
+               !this.tilesDisabled[7]) {
+          rand = 7;
+    } else if (this.content[2] === this.playerChoice &&
+               this.content[5] === this.playerChoice &&
+               !this.tilesDisabled[8]) {
+          rand = 8;
+
+    // Prevent winning moves on middle row.
+    } else if (this.content[0] === this.playerChoice &&
+               this.content[6] === this.playerChoice &&
+               !this.tilesDisabled[3]) {
+          rand = 3;
+    } else if (this.content[1] === this.playerChoice &&
+               this.content[7] === this.playerChoice &&
+               !this.tilesDisabled[4]) {
+          rand = 4;
+    } else if (this.content[2] === this.playerChoice &&
+               this.content[7] === this.playerChoice &&
+               !this.tilesDisabled[5]) {
+          rand = 5;
+    // Prevent winning moves in both diagonal directions.
+    } else if (this.content[0] === this.playerChoice &&
+               this.content[4] === this.playerChoice &&
+               !this.tilesDisabled[8]) {
+          rand = 8;
+    } else if (this.content[4] === this.playerChoice &&
+               this.content[8] === this.playerChoice &&
+               !this.tilesDisabled[0]) {
+          rand = 0;
+    } else if (this.content[0] === this.playerChoice &&
+               this.content[8] === this.playerChoice &&
+               !this.tilesDisabled[4]) {
+          rand = 4;
+    } else if (this.content[2] === this.playerChoice &&
+               this.content[4] === this.playerChoice &&
+               !this.tilesDisabled[6]) {
+          rand = 6;
+    } else if (this.content[4] === this.playerChoice &&
+               this.content[6] === this.playerChoice &&
+               !this.tilesDisabled[2]) {
+          rand = 2;
+    } else if (this.content[2] === this.playerChoice &&
+               this.content[6] === this.playerChoice &&
+               !this.tilesDisabled[4]) {
+          rand = 4;
+    }
+
+    // Computer has picked a tile based on logic above, now executes turn.
     if (rand === 0 && !this.tilesDisabled[0]) {
       if (this.playerChoice === 'x') {
         this.handleComputerAnimation(0, 1000);
