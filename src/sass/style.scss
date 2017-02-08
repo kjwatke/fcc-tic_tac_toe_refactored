@@ -62,9 +62,8 @@ body {
     font-family: 'Sansita', sans-serif;
     font-size: 1.7em;
     height: 15vh;
-    justify-content: space-between;;
-    position: absolute;
-    top: 120vh;
+    justify-content: space-between;
+    margin-top: 100%;
     width: 100%;
 
     a {
@@ -211,7 +210,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 20px 4pd $blk;
     margin: 20% auto;
-    padding: 5% 0;
+    padding: 5% 4%;
     width: 30%;
 
     button {
